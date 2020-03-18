@@ -1,9 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { render, fireEvent } from '@testing-library/react'
 
 import TabbedWizard from '../wizard'
-import TabPanel from '../tab_panel'
 
 describe("Test Wizard Component", ()=>{
     it("should render tabs correctly", ()=> {
@@ -16,8 +14,8 @@ describe("Test Wizard Component", ()=>{
     it("should show first panel when rendered", ()=> {
         const wizard = render(
             <TabbedWizard tabs={['tab1', 'tab2']}>
-                <TabPanel>Tab1 content</TabPanel>
-                <TabPanel>Tab2 content</TabPanel>
+                <div>Tab1 content</div>
+                <div>Tab2 content</div>
             </TabbedWizard>
         )
 
@@ -29,8 +27,8 @@ describe("Test Wizard Component", ()=>{
     it("clicking on tab should change the tap", ()=> {
         const wizard = render(
             <TabbedWizard tabs={['tab1', 'tab2']}>
-                <TabPanel>Tab1 content</TabPanel>
-                <TabPanel>Tab2 content</TabPanel>
+                <div>Tab1 content</div>
+                <div>Tab2 content</div>
             </TabbedWizard>
         )
 
@@ -43,8 +41,8 @@ describe("Test Wizard Component", ()=>{
     test('Wizard snapshot is not changed', ()=>{
         const wizard = render(
             <TabbedWizard tabs={['tab1', 'tab2']}>
-                <TabPanel>Tab1 content</TabPanel>
-                <TabPanel>Tab2 content</TabPanel>
+                <div>Tab1 content</div>
+                <div>Tab2 content</div>
             </TabbedWizard>
         )
 

@@ -54,7 +54,7 @@ exports[`Test Wizard Component Wizard snapshot is not changed 1`] = `
               </button>
             </div>
             <span
-              class="PrivateTabIndicator-root-251 PrivateTabIndicator-colorSecondary-253 MuiTabs-indicator"
+              class="PrivateTabIndicator-root-256 PrivateTabIndicator-colorSecondary-258 MuiTabs-indicator"
               style="left: 0px; width: 0px;"
             />
           </div>
@@ -62,13 +62,12 @@ exports[`Test Wizard Component Wizard snapshot is not changed 1`] = `
       </div>
       <div>
         <div
-          class="tap-panel"
+          class="MuiBox-root MuiBox-root-261 tab-panel"
         >
-          Tab1 content
+          <div>
+            Tab1 content
+          </div>
         </div>
-        <div
-          class="tap-panel"
-        />
       </div>
     </div>
   </div>

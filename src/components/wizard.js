@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Paper, Tabs, Tab } from '@material-ui/core'
+import TabPanel from './tab_panel'
 
 export default function Wizard({tabs, children}) {
     const [value, setValue] = React.useState(0)
@@ -19,11 +20,9 @@ export default function Wizard({tabs, children}) {
         </Paper>
         <div>
             { children && children.map((child,i)=>{
-                return React.cloneElement(child, {...child.props, 
-                    value, 
-                    index:i, 
-                    key:i,
-                })
+                return <TabPanel index={i} key={i} value={value}>
+                    {child}
+                </TabPanel>
             }) }
         </div>
     </div>
