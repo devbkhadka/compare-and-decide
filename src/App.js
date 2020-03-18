@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import { Button } from '@material-ui/core';
+import Wizard from './components/wizard'
+import TabPanel from './components/tab_panel'
+
 import './App.css';
 
 function App() {
+  const [value, setValue] = React.useState(0)
+  const onTabChange = (event, newValue) => {
+    setValue(newValue)
+  }
+  const step = (count) => {
+    setValue(value+count)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wizard tabs={['tab1', 'tab2', 'tab3']}>
+      <TabPanel>Tab 1</TabPanel>
+      <TabPanel>Tab 2</TabPanel>
+      <TabPanel>Tab 3</TabPanel>
+    </Wizard>
   );
 }
 
