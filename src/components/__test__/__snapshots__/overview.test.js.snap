@@ -3,7 +3,9 @@
 exports[`Test Overview Component Should render the content correctly 1`] = `
 <body>
   <div>
-    <box>
+    <div
+      class="MuiBox-root MuiBox-root-2"
+    >
       <p
         class="MuiTypography-root MuiTypography-body1"
       >
@@ -23,7 +25,7 @@ exports[`Test Overview Component Should render the content correctly 1`] = `
           Prefered item in the last comparision will be your choice
         </li>
       </ul>
-    </box>
+    </div>
   </div>
 </body>
 `;
