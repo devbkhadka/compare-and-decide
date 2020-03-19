@@ -24,7 +24,7 @@ describe("Test Wizard Component", ()=>{
         expect(wizard.queryByText('Tab2 content')).toBe(null)
     })
 
-    it("clicking on tab should change the tap", ()=> {
+    it("clicking on tab should change the tab", ()=> {
         const wizard = render(
             <TabbedWizard tabs={['tab1', 'tab2']}>
                 <div>Tab1 content</div>

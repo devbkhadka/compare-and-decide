@@ -18,7 +18,7 @@ export default function TabbedWizard({tabs, children}) {
             {tabs.map((tab, i)=><Tab data-testid={'tab-' + i} key={i} label={tab}></Tab>)}
             </Tabs>
         </Paper>
-        <div>
+        <div style={{padding: 20}}>
             { children && children.map((child,i)=>{
                 return <TabPanel index={i} key={i} value={value}>
                     {child}
@@ -27,3 +27,4 @@ export default function TabbedWizard({tabs, children}) {
         </div>
     </div>
 }
+
