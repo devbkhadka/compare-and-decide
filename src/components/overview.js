@@ -1,8 +1,8 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, Box} from '@material-ui/core'
 
 export default function Overview(props) {
-    return <box>
+    return <Box>
         <Typography variant='body1'>
             This tool helps you choose one item from multiple items in three easy steps.
         </Typography>
@@ -13,5 +13,5 @@ export default function Overview(props) {
                 In each comparasion choose one item you prefere and eliminate other until all items are compared</li>
             <li>Prefered item in the last comparision will be your choice</li>
         </ul>
-    </box>
+    </Box>
 }
