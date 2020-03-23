@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Box, useTheme} from '@material-ui/core'
+import { Typography, Box} from '@material-ui/core'
 import {List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
 import {Star} from '@material-ui/icons'
 
@@ -25,7 +25,6 @@ export default function Overview(props) {
 
 
 function BulletPoint({text}) {
-    const theme = useTheme()
     return <ListItem>
             <ListItemIcon>
                 <Star />
