@@ -6,23 +6,126 @@ exports[`Test Overview Component Should render the content correctly 1`] = `
     <div
       class="MuiBox-root MuiBox-root-2"
     >
-      <p
-        class="MuiTypography-root MuiTypography-body1"
+      <h4
+        class="MuiTypography-root MuiTypography-h4"
+        style="margin-bottom: 20px;"
       >
-        This tool helps you choose one item from multiple items in three easy steps.
-      </p>
-      <ul>
-        <li>
-          List all items and its attributes based on which you will do comparision
+        Make Decision in Three Easy Steps
+      </h4>
+      <ul
+        class="MuiList-root MuiList-padding"
+      >
+        <li
+          class="MuiListItem-root MuiListItem-gutters"
+        >
+          <div
+            class="MuiListItemIcon-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiListItemText-root"
+          >
+            <span
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              List all items from which you want to decide from with its attribute
+            </span>
+          </div>
         </li>
-        <li>
-          At first select any item you prefer based on your intusion
+        <li
+          class="MuiListItem-root MuiListItem-gutters"
+        >
+          <div
+            class="MuiListItemIcon-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiListItemText-root"
+          >
+            <span
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Select one prefered item based on intution
+            </span>
+          </div>
         </li>
-        <li>
-          Now compare the current prefered item with each item one at a time. In each comparasion choose one item you prefere and eliminate other until all items are compared
+        <li
+          class="MuiListItem-root MuiListItem-gutters"
+        >
+          <div
+            class="MuiListItemIcon-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiListItemText-root"
+          >
+            <span
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Now compare the current prefered item with each item one at a time.In each comparasion choose one item you prefer and eliminate other until all items are compared
+            </span>
+          </div>
         </li>
-        <li>
-          Prefered item in the last comparision will be your choice
+        <li
+          class="MuiListItem-root MuiListItem-gutters"
+        >
+          <div
+            class="MuiListItemIcon-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiListItemText-root"
+          >
+            <span
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Last prefered item remaining will be your choice. Hurray you have made the decision
+            </span>
+          </div>
         </li>
       </ul>
     </div>

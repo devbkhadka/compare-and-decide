@@ -1,24 +1,42 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Button } from '@material-ui/core'
+import {
+    Input, 
+    List, 
+    ListItem, 
+    ListItemText, 
+    Divider, 
+    Box,
+    Button
+} from '@material-ui/core'
 
 import { addItemWithTitle } from '../datastore/actions'
 
 export default function AddItem(props) {
 
+    let itemTitle
     const items = useSelector(state=>state.items)
     const dispatch = useDispatch()
-    let input
-
+    
+    const handleItemTitleChanged = (e)=>{
+        itemTitle = e.target.value
+    }
     const handleAdd = (e) => {
-        dispatch(addItemWithTitle(input.value))
+        dispatch(addItemWithTitle(itemTitle))
     }
 
     return <div>
-        <input type='text' ref={(inp)=>{input = inp}}></input>
-        <Button onClick={handleAdd}>Add</Button>
-        <ul>
-            { items.map((item, i) => (<li key={i}>{item}</li>)) }
-        </ul>
+        <Box display='flex' style={{marginBottom: 10}}>
+            <Input style={{flexGrow:1}} required data-testid='inpNewitem' label='Add item title' onChange={ handleItemTitleChanged }/>
+            <Button data-testid='btnAdd' onClick={handleAdd}>Add</Button>
+        </Box>
+        <List style={{backgroundColor: 'theme.palette.background.paper'}}>
+            { items.map((item, i) => 
+                (<ListItem>
+                    <ListItemText key={i} primary={item}></ListItemText>
+                    <Divider/>
+                </ListItem>)) 
+            }
+        </List>
     </div>
 } 

@@ -1,7 +1,27 @@
 import React from 'react'
 
-import { Paper, Tabs, Tab, Button } from '@material-ui/core'
+import { Paper, Tabs, Tab, Box, makeStyles } from '@material-ui/core'
+import {ArrowBack, ArrowForward} from '@material-ui/icons';
 import TabPanel from './tab_panel'
+
+const getClasses = makeStyles(theme=>({
+    root: {
+        height:'100%'
+    },
+    tabHeading: {
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.primary.contrastText
+    },
+    tabPanel: {
+        padding: 20,
+        height: "100%"
+    },
+    buttonContainer: {
+        padding: 20
+    }
+
+}))
+
 
 export default function TabbedWizard({tabs, children}) {
     const [value, setValue] = React.useState(0)
@@ -14,25 +34,30 @@ export default function TabbedWizard({tabs, children}) {
             setValue(newValue)
         }
     }
-    return <div>
-        <Paper>
+    const classes = getClasses()
+
+    return <Box display='flex' flexDirection='column' className={classes.root}>
+        <Paper className={classes.tabHeading} square>
             <Tabs
-            className='tabs'
-            value={value}
-            onChange={onTabChange}
-            >
-            {tabs.map((tab, i)=><Tab data-testid={'tab-' + i} key={i} label={tab}></Tab>)}
+                className='tabs'
+                value={value}
+                onChange={onTabChange}
+                >
+                {tabs.map((tab, i)=><Tab data-testid={'tab-' + i} key={i} label={tab}></Tab>)}
             </Tabs>
         </Paper>
-        <div style={{padding: 20}}>
+        <Box flexGrow={1} className={classes.tabPanel}>
             { children && children.map((child,i)=>{
                 return <TabPanel index={i} key={i} value={value}>
                     {child}
                 </TabPanel>
             }) }
-        </div>
-        <Button data-testid="prev" onClick={()=>stepTabBy(-1)}>Previous</Button>
-        <Button data-testid="next" onClick={()=>stepTabBy(1)}>Next</Button>
-    </div>
+        </Box>
+        <Box display='flex' justifyContent='space-between' className={classes.buttonContainer}>
+            <ArrowBack  fontSize='large' data-testid="prev" onClick={()=>stepTabBy(-1)}/>
+            <ArrowForward fontSize='large'  data-testid="next" onClick={()=>stepTabBy(1)}/>
+        </Box>
+        
+    </Box>
 }
 
