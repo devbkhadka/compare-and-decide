@@ -13,11 +13,17 @@ const getClasses = makeStyles(theme=>({
         color: theme.palette.primary.contrastText
     },
     tabPanel: {
-        padding: 20,
-        height: "100%"
+        padding: theme.spacing(2),
+        paddingBottom: 0,
+        overflow: "hidden",
+        height: '100%'
     },
     buttonContainer: {
-        padding: 20
+        padding: theme.spacing(2),
+        paddingTop: 0,
+    },
+    fullHeight: {
+        height: '100%'
     }
 
 }))
@@ -46,9 +52,9 @@ export default function TabbedWizard({tabs, children}) {
                 {tabs.map((tab, i)=><Tab data-testid={'tab-' + i} key={i} label={tab}></Tab>)}
             </Tabs>
         </Paper>
-        <Box flexGrow={1}>
+        <Box flexGrow={1} className={classes.tabPanel}>
             { children && children.map((child,i)=>{
-                return <TabPanel index={i} key={i} value={value} className={classes.tabPanel}>
+                return <TabPanel index={i} key={i} value={value} className={classes.fullHeight}>
                     {child}
                 </TabPanel>
             }) }

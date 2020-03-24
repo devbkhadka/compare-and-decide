@@ -15,7 +15,7 @@ describe('Test reducer', ()=>{
         state = reducer(state, addItemWithTitle('Test title 2'))
         
         const expectedState = {
-            items: ['Test title 2', 'Test title 1']
+            items: ['Test title 1', 'Test title 2']
         }
         expect(state).toEqual(expectedState)
     })

@@ -12,11 +12,19 @@ import AddItem from './components/add_items'
 import './App.css';
 
 const useStyles = makeStyles(theme=>({
+  '@global': {
+    'html, body': {
+      height: '100%'
+    }
+  },
   root:{
     height: '100vh'
   },
   appBarTitle: {
     padding:10
+  },
+  container: {
+    overflow: 'hidden'
   }
 }))
 
@@ -33,7 +41,7 @@ function App() {
             </Typography>
           </AppBar>
         </Box>
-        <Box flexGrow={1}>
+        <Box flexGrow={1} className={classes.container}>
           <Provider store={store}>
             <TabbedWizard tabs={['Overview >>', 'Add Items >>', 'tab3 >>']}>
                 <Overview/>

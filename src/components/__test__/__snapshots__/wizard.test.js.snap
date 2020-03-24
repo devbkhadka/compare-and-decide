@@ -4,10 +4,10 @@ exports[`Test Wizard Component Wizard snapshot is not changed 1`] = `
 <body>
   <div>
     <div
-      class="MuiBox-root MuiBox-root-474 makeStyles-root-469"
+      class="MuiBox-root MuiBox-root-480 makeStyles-root-474"
     >
       <div
-        class="MuiPaper-root makeStyles-tabHeading-470 MuiPaper-elevation1"
+        class="MuiPaper-root makeStyles-tabHeading-475 MuiPaper-elevation1"
       >
         <div
           class="MuiTabs-root tabs"
@@ -56,17 +56,17 @@ exports[`Test Wizard Component Wizard snapshot is not changed 1`] = `
               </button>
             </div>
             <span
-              class="PrivateTabIndicator-root-527 PrivateTabIndicator-colorSecondary-529 MuiTabs-indicator"
+              class="PrivateTabIndicator-root-533 PrivateTabIndicator-colorSecondary-535 MuiTabs-indicator"
               style="left: 0px; width: 0px;"
             />
           </div>
         </div>
       </div>
       <div
-        class="MuiBox-root MuiBox-root-531"
+        class="MuiBox-root MuiBox-root-537 makeStyles-tabPanel-476"
       >
         <div
-          class="MuiBox-root MuiBox-root-532 makeStyles-tabPanel-471"
+          class="MuiBox-root MuiBox-root-538 makeStyles-fullHeight-478"
         >
           <div>
             Tab1 content
@@ -74,7 +74,7 @@ exports[`Test Wizard Component Wizard snapshot is not changed 1`] = `
         </div>
       </div>
       <div
-        class="MuiBox-root MuiBox-root-533 makeStyles-buttonContainer-472"
+        class="MuiBox-root MuiBox-root-539 makeStyles-buttonContainer-477"
       >
         <button
           class="MuiButtonBase-root MuiIconButton-root"
