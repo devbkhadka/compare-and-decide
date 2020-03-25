@@ -5,8 +5,11 @@ import {
     Tabs, 
     Tab, 
     Box,
+    Typography,
+    TextField,
+    IconButton,
     makeStyles,
-    withStyles
+    withStyles,
 } from '@material-ui/core'
 
 import {AddCircleRounded as Add} from '@material-ui/icons'
@@ -50,7 +53,7 @@ const StyledTab = withStyles(theme=>({
     }
 })) (Tab)
 
-export default function AddItem(props) {
+export default function AddItems(props) {
 
     const [itemTitle, setItemTitle] = useState('')
     const [activeTab, setActiveTab] = useState(0)
@@ -79,7 +82,9 @@ export default function AddItem(props) {
                         <Input style={{flexGrow:1, marginRight:20}} required data-testid='inpNewitem' 
                             label='Add item title' value={itemTitle} onChange={ handleItemTitleChanged }
                             placeholder='Item title here'/>
-                        <Add data-testid='btnAdd' fontSize='large' onClick={handleAdd}>Add</Add>
+                        <IconButton>
+                            <Add data-testid='btnAdd' onClick={handleAdd}>Add</Add>
+                        </IconButton>
                     </Box>
                     <Tabs orientation="vertical" variant="scrollable" 
                         className={classes.tabs} value={activeTab}
@@ -90,7 +95,15 @@ export default function AddItem(props) {
                     </Tabs>
                 </Box>
                 <Box className={ joinClss(classes.fullHeight, classes.rightPanel)}>
-                        Here will be form or table
+                    <Typography variant='h4' style={{marginBottom:20}}>
+                        {items[activeTab]}
+                    </Typography>
+                    <Box display='flex' flexWrap>
+                        <TextField name='attr1' label='Attr 1'></TextField>
+                        <TextField name='attr2' label='Attr 2'></TextField>
+                    </Box>
+                    
+                    
                 </Box>
             </Box>
 } 

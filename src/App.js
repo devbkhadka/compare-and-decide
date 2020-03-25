@@ -7,7 +7,8 @@ import theme from './styles/theme'
 import TabbedWizard from './components/wizard'
 import Overview from './components/overview'
 import store from './datastore/store'
-import AddItem from './components/add_items'
+import AddItemsPane from './components/add_items_pane'
+import AddItemsGrid from './components/add_items_grid'
 
 import './App.css';
 
@@ -43,9 +44,10 @@ function App() {
         </Box>
         <Box flexGrow={1} className={classes.container}>
           <Provider store={store}>
-            <TabbedWizard tabs={['Overview >>', 'Add Items >>', 'tab3 >>']}>
+            <TabbedWizard tabs={['Overview >>', 'Add Items >>', 'Add Items 2 >>', 'tab3 >>']}>
                 <Overview/>
-                <AddItem></AddItem>
+                <AddItemsPane></AddItemsPane>
+                <AddItemsGrid></AddItemsGrid>
                 <div>Tab 3</div>
             </TabbedWizard>
           </Provider>
