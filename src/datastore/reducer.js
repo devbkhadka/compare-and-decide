@@ -10,7 +10,7 @@ export default function (state=initialState, payload) {
             if(payload.data){
                 return {...state, items: [...state.items, payload.data]}
             }
-        
+            return state
         default:
             return state
     }
