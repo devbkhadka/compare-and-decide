@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { AppBar, makeStyles, Typography, Box} from '@material-ui/core'
+import {FormattedMessage, defineMessages} from 'react-intl'
 
 import theme from './styles/theme'
 import TabbedWizard from './components/wizard'
@@ -32,19 +33,26 @@ const useStyles = makeStyles(theme=>({
 
 function App() {
   const classes = useStyles()
+  const steps = [ 
+    defineMessages({overview: 'Overview >>'}), 
+    defineMessages({addItemPane: 'Add Items Pane >>'}), 
+    defineMessages({addItemGrid: 'Add Items Grid >>'}), 
+    defineMessages({tab3: 'tab3 >>'})
+  ]
   return (
     <ThemeProvider theme={theme}>
       <Box display='flex' flexDirection='column' className={classes.root}>
         <Box>
           <AppBar position="static" >
             <Typography variant="h6" className={classes.appBarTitle}>
-                Compare And Decide
+              <FormattedMessage id='App.title'
+                defaultMessage='Compare And Decide' />
             </Typography>
           </AppBar>
         </Box>
         <Box flexGrow={1} className={classes.container}>
           <Provider store={store}>
-            <TabbedWizard tabs={['Overview >>', 'Add Items >>', 'Add Items 2 >>', 'tab3 >>']}>
+            <TabbedWizard tabs={steps}>
                 <Overview/>
                 <AddItemsPane></AddItemsPane>
                 <AddItemsGrid></AddItemsGrid>

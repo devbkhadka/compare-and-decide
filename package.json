@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-intl": "^4.2.2",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.0",
     "redux": "^4.0.5"
@@ -18,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "extract-messages": "BABEL_ENV=production npx extract-messages -l=en,np -o build/translations -d en --flat true 'src/**/!(*.test).js'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,5 +36,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.13.0",
+    "babel-plugin-react-intl-auto": "^3.3.0",
+    "customize-cra": "^0.9.1",
+    "extract-react-intl-messages": "^4.1.1",
+    "react-app-rewired": "^2.1.5",
+    "webpack-cli": "^3.3.11"
   }
 }

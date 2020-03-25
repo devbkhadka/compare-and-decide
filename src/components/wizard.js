@@ -4,6 +4,8 @@ import { Paper, Tabs, Tab, Box, makeStyles, IconButton } from '@material-ui/core
 import {ArrowBack, ArrowForward} from '@material-ui/icons';
 import TabPanel from './tab_panel'
 
+import formattedText from '../utils/translations'
+
 const getClasses = makeStyles(theme=>({
     root: {
         height:'100%'
@@ -49,7 +51,7 @@ export default function TabbedWizard({tabs, children}) {
                 value={value}
                 onChange={onTabChange}
                 >
-                {tabs.map((tab, i)=><Tab data-testid={'tab-' + i} key={i} label={tab}></Tab>)}
+                {tabs.map((tab, i)=><Tab data-testid={'tab-' + i} key={i} label={formattedText(tab)}></Tab>)}
             </Tabs>
         </Paper>
         <Box flexGrow={1} className={classes.tabPanel}>
