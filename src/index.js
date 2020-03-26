@@ -1,25 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IntlProvider } from 'react-intl'
+import { Provider } from 'react-redux'
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import messages_en from './translations/en.json'
-import messages_np from './translations/np.json'
+import store from './datastore/store'
 
-const messages={
-    'np': messages_np,
-    'en': messages_en
-}
-
-
-const language = 'np'
 
 ReactDOM.render(
-    <IntlProvider locale={language}  messages={messages[language]}>
+    <Provider store={store}>
         <App />
-    </IntlProvider>
+    </Provider>
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

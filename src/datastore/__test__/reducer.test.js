@@ -1,12 +1,10 @@
 import reducer from '../reducer'
-import { addItemWithTitle } from '../actions'
+import { addItemWithTitle, updateLanguage } from '../actions'
 
 describe('Test reducer', ()=>{
-    it('should return initial state when no state passed', ()=>{
+    it('should return empty items initially', ()=>{
         const initialState = reducer(undefined, {})
-        expect(initialState).toEqual({
-            items: []
-        })
+        expect(initialState.items).toEqual([])
     })
 
     it('should handle adding item with title', ()=>{
@@ -17,6 +15,17 @@ describe('Test reducer', ()=>{
         const expectedState = {
             items: ['Test title 1', 'Test title 2']
         }
-        expect(state).toEqual(expectedState)
+        expect(state.items).toEqual(expectedState.items)
+    })
+
+    it('should handle change language request', ()=>{
+        let state = reducer(undefined, {})
+        state = reducer(state, updateLanguage('np'))
+        expect(state.language).toBe('np')
+    })
+
+    it('should return default language en initially', ()=>{
+        let state = reducer(undefined, {})
+        expect(state.language).toBe('en')
     })
 })

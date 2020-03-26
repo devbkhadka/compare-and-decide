@@ -6,3 +6,10 @@ Object {
   "type": "ADD_ITEM_WITH_TITLE",
 }
 `;
+
+exports[`Test actions updateLanguage action correctly created 1`] = `
+Object {
+  "data": "np",
+  "type": "UPDATE_LANGUAGE",
+}
+`;

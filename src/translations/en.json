@@ -1,8 +1,8 @@
 {
-  "App.addItemGrid": "Add Items Grid >>",
-  "App.addItemPane": "Add Items Pane >>",
-  "App.overview": "Overview >>",
-  "App.tab3": "tab3 >>",
+  "components.Dashboard.addItemGrid": "Add Items Grid >>",
+  "components.Dashboard.addItemPane": "Add Items Pane >>",
+  "components.Dashboard.overview": "Overview >>",
+  "components.Dashboard.tab3": "tab3 >>",
   "App.title": "Compare And Decide",
   "components.overview.step1": "List all items from which you want to decide from with its attribute",
   "components.overview.step2": "Select one prefered item based on intution",

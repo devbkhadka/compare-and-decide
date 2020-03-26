@@ -1,17 +1,22 @@
 import React from 'react';
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles';
-import { AppBar, makeStyles, Typography, Box} from '@material-ui/core'
-import {FormattedMessage, defineMessages} from 'react-intl'
-
-import theme from './styles/theme'
-import TabbedWizard from './components/wizard'
-import Overview from './components/overview'
-import store from './datastore/store'
-import AddItemsPane from './components/add_items_pane'
-import AddItemsGrid from './components/add_items_grid'
+import { makeStyles, Box} from '@material-ui/core'
+import {IntlProvider} from 'react-intl'
 
 import './App.css';
+
+import theme from './styles/theme'
+import Dashboard from './components/Dashboard'
+import CustomAppBar from './components/CustomAppBar'
+
+import messages_en from './translations/en.json'
+import messages_np from './translations/np.json'
+
+const messages={
+  en: messages_en,
+  np: messages_np
+}
 
 const useStyles = makeStyles(theme=>({
   '@global': {
@@ -22,9 +27,6 @@ const useStyles = makeStyles(theme=>({
   root:{
     height: '100vh'
   },
-  appBarTitle: {
-    padding:10
-  },
   container: {
     overflow: 'hidden'
   }
@@ -33,35 +35,20 @@ const useStyles = makeStyles(theme=>({
 
 function App() {
   const classes = useStyles()
-  const steps = [ 
-    defineMessages({overview: 'Overview >>'}), 
-    defineMessages({addItemPane: 'Add Items Pane >>'}), 
-    defineMessages({addItemGrid: 'Add Items Grid >>'}), 
-    defineMessages({tab3: 'tab3 >>'})
-  ]
+  const language = useSelector(state=>state.language)
   return (
-    <ThemeProvider theme={theme}>
-      <Box display='flex' flexDirection='column' className={classes.root}>
-        <Box>
-          <AppBar position="static" >
-            <Typography variant="h6" className={classes.appBarTitle}>
-              <FormattedMessage id='App.title'
-                defaultMessage='Compare And Decide' />
-            </Typography>
-          </AppBar>
-        </Box>
-        <Box flexGrow={1} className={classes.container}>
-          <Provider store={store}>
-            <TabbedWizard tabs={steps}>
-                <Overview/>
-                <AddItemsPane></AddItemsPane>
-                <AddItemsGrid></AddItemsGrid>
-                <div>Tab 3</div>
-            </TabbedWizard>
-          </Provider>
-        </Box>
-      </Box>
-    </ThemeProvider>
+    <IntlProvider locale={language}  messages={messages[language]}>
+        <ThemeProvider theme={theme}>
+          <Box display='flex' flexDirection='column' className={classes.root}>
+            <Box>
+              <CustomAppBar></CustomAppBar>
+            </Box>
+            <Box flexGrow={1} className={classes.container}>
+              <Dashboard></Dashboard>
+            </Box>
+          </Box>
+        </ThemeProvider>
+    </IntlProvider>
   );
 }
 
