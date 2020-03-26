@@ -5,6 +5,7 @@ exports[`Test Overview Component Should render the content correctly 1`] = `
   <div>
     <div
       class="MuiBox-root MuiBox-root-2"
+      data-testid="overview"
     >
       <h4
         class="MuiTypography-root MuiTypography-h4"
@@ -37,7 +38,7 @@ exports[`Test Overview Component Should render the content correctly 1`] = `
             class="MuiListItemText-root"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
             >
               List all items from which you want to decide from with its attribute
             </span>
@@ -65,7 +66,7 @@ exports[`Test Overview Component Should render the content correctly 1`] = `
             class="MuiListItemText-root"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
             >
               Select one prefered item based on intution
             </span>
@@ -93,9 +94,9 @@ exports[`Test Overview Component Should render the content correctly 1`] = `
             class="MuiListItemText-root"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
             >
-              Now compare the current prefered item with each item one at a time.In each comparasion choose one item you prefer and eliminate other until all items are compared
+              Now compare the current prefered item with each item one at a time. In each comparasion choose one item you prefer and eliminate other until all items are compared
             </span>
           </div>
         </li>
@@ -121,7 +122,7 @@ exports[`Test Overview Component Should render the content correctly 1`] = `
             class="MuiListItemText-root"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
             >
               Last prefered item remaining will be your choice. Hurray you have made the decision
             </span>

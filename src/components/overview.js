@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography, Box} from '@material-ui/core'
 import {List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
 import {Star} from '@material-ui/icons'
-import { FormattedMessage, defineMessages, useIntl } from 'react-intl'
+import { FormattedMessage, defineMessages } from 'react-intl'
 
 
 
@@ -13,11 +13,8 @@ export default function Overview(props) {
         defineMessages({step3: `Now compare the current prefered item with each item one at a time. In each comparasion choose one item you prefer and eliminate other until all items are compared`}),
         defineMessages({step4:'Last prefered item remaining will be your choice. Hurray you have made the decision'})
     ]
-
-    console.log(steps)
-    const { formatMessage} = useIntl()
-
-    return <Box>
+  
+    return <Box data-testid='overview'>
         <Typography variant='h4' style={{marginBottom:20}}>
             <FormattedMessage id='components.overview.title' defaultMessage="Make Decision in Three Easy Steps"/>
         </Typography>

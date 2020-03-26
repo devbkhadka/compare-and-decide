@@ -1,15 +1,18 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
+import {defineMessages} from 'react-intl'
 
 import TabbedWizard from '../wizard'
+import { renderWithIntl as render } from './utils'
 
 describe("Test Wizard Component", ()=>{
-    const wizardWithContent = <TabbedWizard tabs={['tab1', 'tab2']}>
+    const tabs = [defineMessages({tab1: 'tab1'}), defineMessages({tab2: 'tab2'})]
+    const wizardWithContent = <TabbedWizard tabs={tabs}>
                                 <div>Tab1 content</div>
                                 <div>Tab2 content</div>
                             </TabbedWizard>
     it("should render tabs correctly", ()=> {
-        const wizard = render(<TabbedWizard tabs={['tab1', 'tab2']}></TabbedWizard>)
+        const wizard = render(<TabbedWizard tabs={tabs}></TabbedWizard>)
         
         wizard.getByText('tab1')
         wizard.getByText('tab2')

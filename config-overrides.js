@@ -1,7 +1,11 @@
-const { override, fixBabelImports } = require('customize-cra');
+const { override, addBabelPlugin } = require('customize-cra');
 
 module.exports = override(
-    fixBabelImports("import", {
-      libraryName: "babel-plugin-react-intl-auto222"
-    })
+    addBabelPlugin([
+      "react-intl-auto",
+      {
+        "removePrefix": "src/",
+        "filebase": true
+      }
+    ])
 )

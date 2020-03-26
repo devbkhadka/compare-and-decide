@@ -1,7 +1,8 @@
-import { ADD_ITEM_WITH_TITLE } from './constants'
+import { ADD_ITEM_WITH_TITLE, UPDATE_LANGUAGE } from './constants'
 
 const initialState = {
-    items:[]
+    items:[],
+    language: 'en'
 }
 
 export default function (state=initialState, payload) {
@@ -11,6 +12,8 @@ export default function (state=initialState, payload) {
                 return {...state, items: [...state.items, payload.data]}
             }
             return state
+        case UPDATE_LANGUAGE:
+            return {...state, language: payload.data}
         default:
             return state
     }
