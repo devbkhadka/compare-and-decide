@@ -1,4 +1,4 @@
-import {addItemWithTitle, updateLanguage} from '../actions'
+import {addItemWithTitle, updateLanguage, addAttribute} from '../actions'
 
 describe('Test actions', ()=>{
     test('addItemWithTitle action correctly created', ()=>{
@@ -7,5 +7,9 @@ describe('Test actions', ()=>{
 
     test('updateLanguage action correctly created', ()=> {
         expect(updateLanguage('np')).toMatchSnapshot()
+    })
+
+    test('addAttribute action correctly created', ()=> {
+        expect(addAttribute('Name')).toMatchSnapshot()
     })
 })
