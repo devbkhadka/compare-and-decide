@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { makeStyles, Box} from '@material-ui/core'
 import {IntlProvider} from 'react-intl'

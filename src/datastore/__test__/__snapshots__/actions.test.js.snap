@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test actions addAttribute action correctly created 1`] = `
+Object {
+  "data": "Name",
+  "type": "ADD_ATTRIBUTE",
+}
+`;
+
 exports[`Test actions addItemWithTitle action correctly created 1`] = `
 Object {
   "data": "Test title",
