@@ -9,7 +9,7 @@ describe("ItemAttributesPane Test", ()=>{
     it('should dispatch addAttribute action when add button clicked', ()=>{
         const [rendered, store] = render(<ItemAttributesPane item='Mock Item'></ItemAttributesPane>)
 
-        const input = rendered.getByPlaceholderText('Add New Attribute')
+        const input = rendered.getByPlaceholderText('add new attribute')
         const addButton = rendered.getByTestId('btnAdd')
 
         fireEvent.change(input, {target:{value:'Name'}})

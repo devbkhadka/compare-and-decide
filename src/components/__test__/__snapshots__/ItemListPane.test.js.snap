@@ -24,7 +24,7 @@ exports[`ItemListPane Test should match saved snapshot 1`] = `
           <input
             aria-invalid="false"
             class="MuiInputBase-input MuiInput-input"
-            placeholder="Add New Item"
+            placeholder="add new items"
             required=""
             type="text"
             value=""
