@@ -19,7 +19,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "extract-messages__": "BABEL_ENV=production npx extract-messages -l=en,np -o build/translations -d en --flat false 'src/**/!(*.test).js'",
-    "extract-messages": "NODE_ENV=production babel ./src  --out-file /dev/null",
+    "extract-messages": "NODE_ENV=production babel ./src --ignore src/**/*.spec.js,src/**/*.test.js  --out-file /dev/null",
     "manage:translations": "node ./translationRunner.js"
   },
   "eslintConfig": {

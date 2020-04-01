@@ -1,13 +1,18 @@
 {
-  "components.Dashboard.addItemGrid": "सुची थप्नुहोस (तालिका )",
-  "components.Dashboard.addItemPane": "सुची थप्नुहोस (कोठा  )",
+  "components.CustomAppBar.title": "दाजेर छान्नुहोस्",
+  "components.Dashboard.addItemGrid": "सुची थप्नुहोस (तालिका)",
+  "components.Dashboard.addItemPane": "सुची थप्नुहोस (कोठा)",
   "components.Dashboard.overview": "जानकारी ",
   "components.Dashboard.tab3": "टाव ३",
-  "App.title": "दाजेर छान्नुहोस् ",
+  "components.ItemAttributesPane.addAttribute": "नयाँ गुण थप्नुहोस",
+  "components.ItemAttributesPane.addBtnText": "थप्नुहोस ",
+  "components.ItemAttributesPane.attributes": "गुणहरु",
+  "components.ItemListPane.addBtnText": "थप्नुहोस",
+  "components.ItemListPane.addNewItem": "नया बस्तु थप्नुहोस",
+  "components.ItemListPane.title": "सुची",
   "components.overview.step1": "दाज्ञुपर्नॆ कुराहरु थप्नुहोस",
   "components.overview.step2": "तपाइको पहिलो रोजाई छान्नुहोस्",
   "components.overview.step3": "तपाईको आहेलेको पहिलो रोजाई संग प्रतेक बस्तु संग दाज्नुहोस। प्रतेक चोटी दाज्दा एउटा  पहिलो रोजाई छान्नुहोस् र आर्कोलाई सुचीबाट जिक्नुहोस",
   "components.overview.step4": "बाकी रहेको पहिलो रोजाईनै तपाईको रोजाई हो।",
-  "components.overview.title": "तीन सजिलो पहिलामा निर्णय लिनुहोस् "
-
+  "components.overview.title": "तीन सजिलो पहिलामा निर्णय लिनुहोस्"
 }
