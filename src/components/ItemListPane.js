@@ -32,7 +32,7 @@ export default function ItemListPane({ onItemSelected }) {
     const items = useSelector(state=>state.items)
     const dispatch = useDispatch()
 
-    const [activeTab, setActiveTab] = useState(0)
+    const [activeTab, setActiveTab] = useState(Object.keys(items).length>0?0:null)
     const handleItemTitleChanged = (e)=>{
         setItemTitle(e.target.value)
     }
@@ -41,14 +41,20 @@ export default function ItemListPane({ onItemSelected }) {
         setItemTitle('')
     }
 
-    const handleActiveItemChanged = (e, newValue) => {
+    const handleKeyUp = (e) => {
+        if(e.key === 'Enter'){
+            handleAdd(e)
+        }
+    }
+
+    const handleActiveItemChanged = (newValue) => {
         setActiveTab(newValue)
-        onItemSelected && onItemSelected(items[newValue])
+        onItemSelected && onItemSelected(items[Object.keys(items)[newValue]])
     }
 
     useEffect(()=>{
-        if(items.length===1){
-            onItemSelected && onItemSelected(items[0])
+        if(!activeTab && Object.keys(items).length===1){
+            handleActiveItemChanged(0)
         }
     })
     const theme = useTheme()
@@ -59,15 +65,15 @@ export default function ItemListPane({ onItemSelected }) {
         <Box display='flex' style={{marginRight: theme.spacing(1)}}>
             <TextField style={{flexGrow:1}} required data-testid='inpNewitem' 
                 value={itemTitle} onChange={ handleItemTitleChanged }
-                placeholder='Add New Item'/>
+                onKeyUp={handleKeyUp} placeholder='Add New Item'/>
             <IconButton data-testid='btnAdd' onClick={handleAdd}>
                 <Add>Add</Add>
             </IconButton>
         </Box>
         <Tabs orientation="vertical" variant="scrollable" value={activeTab}
-            onChange={handleActiveItemChanged}>
+            onChange={(e, value)=>handleActiveItemChanged(value)}>
             {
-                items.map((item, i)=><StyledTab key={i} label={item} wrapped/>)
+                Object.keys(items).map((key, i)=><StyledTab key={i} label={items[key].title} wrapped/>)
             }
         </Tabs>
     </>

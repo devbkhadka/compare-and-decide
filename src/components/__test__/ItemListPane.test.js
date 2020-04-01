@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderWithProvider } from './utils'
-import { fireEvent, waitForElement } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { addItemWithTitle } from '../../datastore/actions'
 import ItemListPane from '../ItemListPane'
 
@@ -25,5 +25,48 @@ describe("ItemListPane Test", ()=>{
     it('should match saved snapshot', ()=>{
         const [rendered] = render(<ItemListPane></ItemListPane>)
         expect(rendered.baseElement).toMatchSnapshot()
+    })
+
+    it('should render items from redux store', ()=>{
+        const items = {
+            ['item1']: { 
+                title: 'Item1',
+            }, 
+            ['item2']: {
+                title: 'Item2',
+            }
+        }
+        const [rendered] = render(<ItemListPane></ItemListPane>, {items})
+
+        rendered.getByText('Item1')
+        rendered.getByText('Item2')
+    })
+
+    it('should trigger onItemSelected event when a item is clicked', ()=>{
+        const items = {
+            ['item1']: { 
+                title: 'Item1',
+            }, 
+            ['item2']: {
+                title: 'Item2',
+            }
+        }
+        const mockOnItemSelected = jest.fn()
+        const [rendered] = render(<ItemListPane onItemSelected={mockOnItemSelected}/>, {items})
+        fireEvent.click(rendered.getByText('Item2'))
+
+        expect(mockOnItemSelected).toBeCalledWith(items['item2'])
+    })
+
+    it('should trigger onItemSelected for 1st item when only one item exists', async ()=>{
+        const mockOnItemSelected = jest.fn()
+        const items = {
+            ['item1']: { 
+                title: 'Item1',
+            }
+        }
+        const [rendered] = render(<ItemListPane onItemSelected={mockOnItemSelected}/>, {items})
+        
+        expect(mockOnItemSelected).toBeCalledWith({title: 'Item1'})
     })
 })
