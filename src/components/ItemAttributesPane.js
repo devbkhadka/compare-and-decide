@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     Box,
@@ -9,6 +9,7 @@ import {
     makeStyles
 } from '@material-ui/core'
 import {AddCircleRounded as Add} from '@material-ui/icons'
+import { FormattedMessage, defineMessages } from 'react-intl'
 import { addAttribute, updateItemAttributeValue } from '../datastore/actions'
 
 const useStyles = makeStyles(theme=>({
@@ -29,6 +30,15 @@ const useStyles = makeStyles(theme=>({
         }
     }
 }))
+
+
+const messages = defineMessages({
+    attributes: 'Attributes',
+    addAttribute: 'add new attribute',
+    addBtnText: 'Add'
+})
+
+
 
 export default function ItemAttributesPane({item}) {
     const [attrName, setAttrName] = useState('')
@@ -59,16 +69,20 @@ export default function ItemAttributesPane({item}) {
     const theme = useTheme()
     return <>
         <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
-            {item? item.title: 'Attributes'}
+            {item? item.title: <FormattedMessage {...messages.attributes} />}
         </Typography>
         <Box display='flex'>
-            <TextField style={{flexGrow:1}} name='addAttributes' 
-                placeholder='Add New Attribute'
-                onChange={handleAttNameChanged} value={attrName}
-                onKeyUp = {handleKeyUp}
-                />
+            <FormattedMessage {...messages.addAttribute}>
+                {(placeholder)=>
+                    <TextField style={{flexGrow:1}} name='addAttributes' 
+                    placeholder={placeholder}
+                    onChange={handleAttNameChanged} value={attrName}
+                    onKeyUp = {handleKeyUp}
+                    />
+                }
+            </FormattedMessage>
             <IconButton data-testid='btnAdd' onClick={handleAdd}>
-                <Add>Add</Add>
+            <Add><FormattedMessage {...messages.addBtnText}/></Add>
             </IconButton>
         </Box>
         

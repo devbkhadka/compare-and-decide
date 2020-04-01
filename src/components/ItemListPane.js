@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import {AddCircleRounded as Add} from '@material-ui/icons'
 import { addItemWithTitle } from '../datastore/actions'
+import { defineMessages, FormattedMessage } from 'react-intl'
 
 const StyledTab = withStyles(theme=>({
     wrapper: {
@@ -26,6 +27,12 @@ const StyledTab = withStyles(theme=>({
         }
     }
 })) (Tab)
+
+const messages = defineMessages({
+    title: 'Items',
+    addNewItem: 'add new items',
+    addBtnText: 'Add'
+})
 
 export default function ItemListPane({ onItemSelected }) {
     const [itemTitle, setItemTitle] = useState('')
@@ -60,14 +67,18 @@ export default function ItemListPane({ onItemSelected }) {
     const theme = useTheme()
     return <>
         <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
-            Items
+            <FormattedMessage {...messages.title}/>
         </Typography>
         <Box display='flex' style={{marginRight: theme.spacing(1)}}>
-            <TextField style={{flexGrow:1}} required data-testid='inpNewitem' 
-                value={itemTitle} onChange={ handleItemTitleChanged }
-                onKeyUp={handleKeyUp} placeholder='Add New Item'/>
+            <FormattedMessage {...messages.addNewItem}>
+                { (addNewItem)=>
+                <TextField style={{flexGrow:1}} required data-testid='inpNewitem' 
+                    value={itemTitle} onChange={ handleItemTitleChanged }
+                    onKeyUp={handleKeyUp} placeholder={addNewItem}/>
+                }
+            </FormattedMessage>
             <IconButton data-testid='btnAdd' onClick={handleAdd}>
-                <Add>Add</Add>
+                <Add><FormattedMessage {...messages.addBtnText}/> </Add>
             </IconButton>
         </Box>
         <Tabs orientation="vertical" variant="scrollable" value={activeTab}
