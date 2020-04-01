@@ -7,6 +7,7 @@ import {
 import { joinClss } from '../utils/css_utils'
 import ItemListPane from './ItemListPane'
 import ItemAttributesPane from './ItemAttributesPane'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles(theme=>({
     root: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme=>({
     },
     leftPanel: {
         width: '250px',
+        minWidth: '250px',
         overflow: 'scroll',
         borderRight: `1px solid ${theme.palette.divider}`,
     },
@@ -31,6 +33,7 @@ const useStyles = makeStyles(theme=>({
 export default function AddItems(props) {
 
     const [selectedItem, setSelectedItem] = useState(null)
+    const items = useSelector(state=>state.items)
     
     const classes = useStyles()
 
@@ -43,8 +46,9 @@ export default function AddItems(props) {
                     className={ joinClss(classes.fullHeight, classes.leftPanel)}>
                     <ItemListPane onItemSelected={handleItemSelected}></ItemListPane>
                 </Box>
-                <Box display='flex' flexDirection='column' className={ joinClss(classes.fullHeight, classes.rightPanel)}>
-                    <ItemAttributesPane item={selectedItem}></ItemAttributesPane>
+                <Box display='flex' flexDirection='column' 
+                    className={ joinClss(classes.fullHeight, classes.rightPanel)}>
+                    <ItemAttributesPane item={selectedItem && items[selectedItem.title]}></ItemAttributesPane>
                 </Box>
             </Box>
 }

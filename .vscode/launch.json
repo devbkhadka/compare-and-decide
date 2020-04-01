@@ -4,27 +4,28 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug test",
-            "runtimeArgs": [
-                "--inspect-brk",
-                "${workspaceRoot}/node_modules/react-app-rewired/scripts/test",
-                "${input:moduleName}",
-                "--runInBand"
-              ],
-              "console": "integratedTerminal",
-              "internalConsoleOptions": "neverOpen",
-              "port": 9229
-        },
-        {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Debug in chrome",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/public"
-        }
+      {
+        "name": "Chrome",
+        "type": "chrome",
+        "request": "attach",
+        "url": "http://localhost:3000",
+        "webRoot": "${workspaceRoot}/src"
+      },
+      {
+          "type": "node",
+          "request": "launch",
+          "name": "Debug test",
+          "runtimeArgs": [
+              "--inspect-brk",
+              "${workspaceRoot}/node_modules/react-app-rewired/scripts/test",
+              "${input:moduleName}",
+              "--runInBand"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+      }
+        
     ],
     "inputs": [
         {
