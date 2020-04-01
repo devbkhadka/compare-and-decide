@@ -10,7 +10,7 @@ describe("ItemListPane Test", ()=>{
     it('should dispatch addItemWithTitle action when add button clicked', async ()=>{
         const [rendered, store] = render(<ItemListPane></ItemListPane>)
 
-        const input = rendered.getByPlaceholderText('Add New Item')
+        const input = rendered.getByPlaceholderText('add new items')
         const addButton = rendered.getByTestId('btnAdd')
         
         fireEvent.change(input, {target:{value: 'Item 1'}})

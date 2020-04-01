@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaneLayout should raise error if number of children is not exactly two 1`] = `"PanelLayout should have exactly 2 children, 1st for right pane and 2nd for left pane"`;
+
+exports[`PaneLayout should raise error if number of children is not exactly two 2`] = `"PanelLayout should have exactly 2 children, 1st for right pane and 2nd for left pane"`;
+
+exports[`PaneLayout should raise error if number of children is not exactly two 3`] = `"PanelLayout should have exactly 2 children, 1st for right pane and 2nd for left pane"`;
+
+exports[`PaneLayout snapshot is matching 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiBox-root MuiBox-root-10 makeStyles-root-1 makeStyles-fullHeight-2"
+    >
+      <div
+        class="MuiBox-root MuiBox-root-11 makeStyles-fullHeight-2 makeStyles-leftPanel-3"
+      >
+        <div>
+          I am left pane
+        </div>
+      </div>
+      <div
+        class="MuiBox-root MuiBox-root-12 makeStyles-fullHeight-2 makeStyles-rightPanel-4"
+      >
+        <div>
+          I am right pane
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
