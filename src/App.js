@@ -10,11 +10,9 @@ import theme from './styles/theme'
 import Dashboard from './components/Dashboard'
 import CustomAppBar from './components/CustomAppBar'
 
-import messages_en from './translations/en.json'
 import messages_np from './translations/np.json'
 
 const messages={
-  en: messages_en,
   np: messages_np
 }
 
