@@ -56,10 +56,6 @@ export default function ItemAttributesPane({item}) {
         dispatch(updateItemAttributeValue(i, attribute, value))
     }
 
-    useEffect(()=>{
-        console.log('ItemAttributesPane rerendred', item)
-    })
-
     const theme = useTheme()
     return <>
         <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
