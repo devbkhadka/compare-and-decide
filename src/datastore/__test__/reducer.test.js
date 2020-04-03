@@ -1,41 +1,27 @@
 import reducer from '../reducer'
-import { addItemWithTitle, updateLanguage, addAttribute, updateItemAttributeValue} from '../actions'
+import { updateItems, updateLanguage, addAttribute, updateItemAttributeValue} from '../actions'
 
 describe('Reducer', ()=>{
     describe('Operations on Items', ()=>{
         it('should return empty items initially', ()=>{
             const initialState = reducer(undefined, {})
-            expect(initialState.items).toEqual([])
+            expect(initialState.items).toEqual({})
         })
     
-        it('should handle adding item with title', ()=>{
-            let state = reducer(undefined, {})
-            state = reducer(state, addItemWithTitle('Test title 1'))
-            state = reducer(state, addItemWithTitle('Test title 2'))
-            
-            const expectedState = {
-                items: {
-                    ['Test title 1']: {title: 'Test title 1', values: {}}, 
-                    ['Test title 2']: {title: 'Test title 2', values: {}}
+        it('should update items', ()=>{
+            const items = {
+                ['Item 1']: {
+                    title: 'Item 1',
+                    values: {}
+                },
+                ['Item 2']: {
+                    title: 'Item 2',
+                    values: {}
                 }
             }
-            expect(state.items).toEqual(expectedState.items)
-        })
-
-        it('should not change state if duplicate title given', ()=>{
-            const state = {
-                items: {
-                    ['Test title 1']: {
-                        title: 'Test title 1'
-                    },
-                    ['Test title 2']: {
-                        title: 'Test title 2'
-                    }
-                }
-            }
-
-            const newState = reducer(state, addItemWithTitle('Test title 1'))
-            expect(newState).toBe(state)
+            const newState = reducer(undefined, updateItems(items))
+            expect(newState.items).not.toBe(items)
+            expect(newState.items).toEqual(items)
         })
     })
 

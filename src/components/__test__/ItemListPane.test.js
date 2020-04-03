@@ -1,14 +1,18 @@
 import React from 'react'
 import { renderWithProvider } from './utils'
 import { fireEvent } from '@testing-library/react'
-import { addItemWithTitle } from '../../datastore/actions'
+import { addItemWithTitle as mockAddItemWithTitle } from '../../datastore/actions'
 import ItemListPane from '../ItemListPane'
 
-const render = (component, state={items:[]})=> renderWithProvider(component, state)
+const render = (component, state={items:{}})=> renderWithProvider(component, state)
 
+jest.mock('../../datastore/actions')
 describe("ItemListPane Test", ()=>{
+    beforeEach(()=>{
+        mockAddItemWithTitle.mockImplementation(()=>(()=>{}))
+    })
     it('should dispatch addItemWithTitle action when add button clicked', async ()=>{
-        const [rendered, store] = render(<ItemListPane></ItemListPane>)
+        const [rendered] = render(<ItemListPane></ItemListPane>)
 
         const input = rendered.getByPlaceholderText('add new items')
         const addButton = rendered.getByTestId('btnAdd')
@@ -16,10 +20,7 @@ describe("ItemListPane Test", ()=>{
         fireEvent.change(input, {target:{value: 'Item 1'}})
         fireEvent.click(addButton)
 
-        fireEvent.change(input,  {target:{value: 'Item 2'}})
-        fireEvent.click(addButton)
-
-        expect(store.getActions()).toEqual([addItemWithTitle('Item 1'), addItemWithTitle('Item 2')])
+        expect(mockAddItemWithTitle).toBeCalledWith('Item 1')
     })
 
     it('should match saved snapshot', ()=>{
@@ -65,7 +66,7 @@ describe("ItemListPane Test", ()=>{
                 title: 'Item1',
             }
         }
-        const [rendered] = render(<ItemListPane onItemSelected={mockOnItemSelected}/>, {items})
+        render(<ItemListPane onItemSelected={mockOnItemSelected}/>, {items})
         
         expect(mockOnItemSelected).toBeCalledWith({title: 'Item1'})
     })

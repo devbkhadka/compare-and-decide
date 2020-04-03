@@ -3,9 +3,11 @@ import { Provider } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { render } from '@testing-library/react'
 import configureMockStore from 'redux-mock-store'
+// import {middleWares} from '../../datastore/store'
+import ReduxThunk from 'redux-thunk'
 
-const middlewares = []
-const mockStore = configureMockStore(middlewares)
+
+const mockStore = configureMockStore([ReduxThunk])
 
 export function renderWithIntl(component) {
     return render(<IntlProvider locale="en" messages={{}}>{ component }</IntlProvider>)
