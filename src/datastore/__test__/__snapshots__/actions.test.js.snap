@@ -1,16 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test actions Items updateItem returns correct item object 1`] = `
+Object {
+  "data": Object {
+    "Item 1": Object {
+      "title": "Item 1",
+      "values": Object {
+        "abc": "xyz",
+      },
+    },
+  },
+  "type": "UPDATE_ITEMS",
+}
+`;
+
 exports[`Test actions addAttribute action correctly created 1`] = `
 Object {
   "data": "Name",
   "type": "ADD_ATTRIBUTE",
-}
-`;
-
-exports[`Test actions addItemWithTitle action correctly created 1`] = `
-Object {
-  "data": "Test title",
-  "type": "ADD_ITEM_WITH_TITLE",
 }
 `;
 

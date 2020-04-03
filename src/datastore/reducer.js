@@ -1,30 +1,21 @@
 import {
-    ADD_ITEM_WITH_TITLE, 
+    UPDATE_ITEMS,
     UPDATE_LANGUAGE, 
     ADD_ATTRIBUTE, 
     UPDATE_ITEM_ATTRIBUTE_VALUE 
 } from './constants'
 
 const initialState = {
-    items:[],
+    items:{},
     attributes:[],
     language: 'en'
 }
 
 export default function (state=initialState, payload) {
     switch(payload.type) {
-        case ADD_ITEM_WITH_TITLE:
-            if(state.items[payload.data]) {
-                return state
-            }
-            const item = {
-                title: payload.data,
-                values: {}
-            }
-            if(payload.data){
-                return {...state, items: {...state.items, [item.title]:item}}
-            }
-            return state
+        case UPDATE_ITEMS:
+            return {...state, items: {...payload.data}}
+
         case ADD_ATTRIBUTE:
             if(payload.data) {
                 return {...state, attributes: [...state.attributes, payload.data]}
