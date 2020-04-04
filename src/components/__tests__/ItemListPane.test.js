@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderWithProvider } from './utils'
+import { renderWithProvider } from '../../utils/testUtils'
 import { fireEvent } from '@testing-library/react'
 import { addItemWithTitle as mockAddItemWithTitle } from '../../datastore/actions'
 import ItemListPane from '../ItemListPane'

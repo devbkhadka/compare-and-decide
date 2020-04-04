@@ -13,7 +13,7 @@ export function renderWithIntl(component) {
     return render(<IntlProvider locale="en" messages={{}}>{ component }</IntlProvider>)
 }
 
-export function renderWithProvider(component, initialState={}) {
+export function renderWithProvider(component, initialState={language: 'en'}) {
     const store = mockStore(initialState)
     return [render(<Provider store={store}>
         <IntlProvider locale="en" messages={{}}>{ component }</IntlProvider>

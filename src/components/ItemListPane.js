@@ -60,7 +60,7 @@ export default function ItemListPane({ onItemSelected }) {
     }
 
     useEffect(()=>{
-        if(!activeTab && Object.keys(items).length===1){
+        if(!activeTab && Object.keys(items).length>=1){
             handleActiveItemChanged(0)
         }
     })

@@ -1,9 +1,10 @@
 import { UPDATE_ITEMS, 
     UPDATE_LANGUAGE, 
-    ADD_ATTRIBUTE, 
-    UPDATE_ITEM_ATTRIBUTE_VALUE } from './constants'
+    UPDATE_ATTRIBUTES
+} from './constants'
 
-const ITEMS_KEY = 'items'
+export const ITEMS_KEY = 'items-key'
+export const ATTRIBUTES_KEY = 'attributes-key'
 
 export function addItemWithTitle(title) {
     return (dispatch, getState) => {
@@ -23,6 +24,20 @@ export function addItemWithTitle(title) {
     }
 }
 
+export function loadStateFromStorage() {
+    return dispatch => {
+        const itemsJson = localStorage.getItem(ITEMS_KEY)
+        if(itemsJson) {
+            dispatch(updateItems(JSON.parse(itemsJson)))
+        }
+
+        const attributesJson = localStorage.getItem(ATTRIBUTES_KEY)
+        if(attributesJson) {
+            dispatch(updateAttributes(JSON.parse(attributesJson)))
+        }
+    }
+}
+
 export function updateItems(items) {
     return {
         type: UPDATE_ITEMS,
@@ -38,15 +53,30 @@ export function updateLanguage(language) {
 }
 
 export function addAttribute(attribute) {
+    return (dispatch, getState)=>{
+        const attributes = getState().attributes
+        if(attribute) {
+            attributes.push(attribute)
+            localStorage.setItem(ATTRIBUTES_KEY, JSON.stringify(attributes))
+            dispatch(updateAttributes(attributes))
+        }
+    }
+}
+
+export function updateAttributes(attributes) {
     return {
-        type: ADD_ATTRIBUTE,
-        data: attribute
+        type: UPDATE_ATTRIBUTES,
+        data: attributes
     }
 }
 
 export function updateItemAttributeValue(item, attr, value) {
-    return {
-        type: UPDATE_ITEM_ATTRIBUTE_VALUE,
-        data: {item, attr, value}
+    return (dispatch, getState) => {
+        const state = getState()
+        const newItems = {...state.items}
+        newItems[item.title] = {...item, values: {...item.values, [attr]: value}}
+        
+        localStorage.setItem(ITEMS_KEY, JSON.stringify(newItems))
+        dispatch(updateItems(newItems))
     }
 }
