@@ -2,10 +2,10 @@ import React from 'react'
 
 import {defineMessages} from 'react-intl'
 
-import TabbedWizard from './wizard'
-import Overview from './overview'
-import AddItemsPane from './add_items_pane'
-import AddItemsGrid from './add_items_grid'
+import TabbedWizard from './Wizard'
+import Overview from './Overview'
+import AddItemsPane from './AddItemsPane'
+import AddItemsGrid from './AddItemsGrid'
 
 
 const steps = [ 
