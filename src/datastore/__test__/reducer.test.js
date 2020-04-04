@@ -1,5 +1,5 @@
 import reducer from '../reducer'
-import { updateItems, updateLanguage, addAttribute, updateItemAttributeValue} from '../actions'
+import { updateItems, updateLanguage, addAttribute, updateItemAttributeValue, updateAttributes} from '../actions'
 
 describe('Reducer', ()=>{
     describe('Operations on Items', ()=>{
@@ -45,31 +45,15 @@ describe('Reducer', ()=>{
             expect(state.attributes).toEqual([])
         })
     
-        it('should handle addAttributes request', ()=>{
-            let state = reducer(undefined, {})
-            state = reducer(state, addAttribute('Name'))
-            state = reducer(state, addAttribute('Age'))
-    
-            expect(state.attributes).toEqual(['Name', 'Age'])
-    
-        })
-    })
+        it('should handle updateAttributes request', ()=>{
+            const state = {attributes: ['Attr 1', 'Attr 2']}
+            const attributes = ['Attr 3', 'Attr 4']
 
-    describe('Operations on Item Attribute Values', ()=>{
-        it('should set given value to given item attribute', ()=>{
-            const state = {
-                items: {
-                    'Item 1':{title: 'Item 1', values: {}}, 
-                    'Item 2': {title: 'Item 2', values: {}}, 
-                    'Item 3': {title: 'Item 3', values: {}}
-                }
-            }
-            const newState = reducer(state, updateItemAttributeValue(state.items['Item 1'], 'Fake Attribute', 'Fake Value'))
-            state.items['Item 1'].values['Fake Attribute'] = 'Fake Value'
+            const newState = reducer(state, updateAttributes(attributes))
 
-            expect(state.items).not.toBe(newState.items)
-            expect(state.items['Item 1']).not.toBe(newState.items['Item 1'])
-            expect(state.items['Item 1']).toEqual(newState.items['Item 1'])
+            expect(newState.attributes).toEqual(attributes)
+            expect(newState.attributes).not.toBe(attributes)
+    
         })
     })
 })

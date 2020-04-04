@@ -1,7 +1,7 @@
 import React from 'react'
 import Dashboard from '../Dashboard'
 
-import { renderWithIntl as render } from './utils'
+import { renderWithIntl as render } from '../../utils/testUtils'
 
 describe('Dashboard Component Test', ()=>{
     it('should pass steps to tabs property of TabbedWizard', ()=>{

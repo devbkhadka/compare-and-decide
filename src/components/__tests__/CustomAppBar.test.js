@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, waitForElement } from '@testing-library/react'
 
 import CustomAppBar from '../CustomAppBar'
-import { renderWithProvider as render } from './utils'
+import { renderWithProvider as render } from '../../utils/testUtils'
 import { updateLanguage } from '../../datastore/actions'
 
 

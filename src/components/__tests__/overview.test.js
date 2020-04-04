@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderWithIntl as render } from './utils'
+import { renderWithIntl as render } from '../../utils/testUtils'
 
 import Overview from '../overview'
 

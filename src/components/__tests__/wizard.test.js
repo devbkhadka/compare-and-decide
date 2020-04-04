@@ -3,7 +3,7 @@ import { fireEvent } from '@testing-library/react'
 import {defineMessages} from 'react-intl'
 
 import TabbedWizard from '../wizard'
-import { renderWithIntl as render } from './utils'
+import { renderWithIntl as render } from '../../utils/testUtils'
 
 describe("Test Wizard Component", ()=>{
     const tabs = [defineMessages({tab1: 'tab1'}), defineMessages({tab2: 'tab2'})]
