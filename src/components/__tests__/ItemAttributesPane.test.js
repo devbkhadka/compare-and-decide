@@ -1,13 +1,21 @@
 import React from 'react'
-import { renderWithProvider } from './utils'
+import { renderWithProvider } from '../../utils/testUtils'
 import { fireEvent } from '@testing-library/react'
-import { addAttribute, updateItemAttributeValue, addItemWithTitle } from '../../datastore/actions'
+import { 
+    addAttribute as mockAddAttribute, 
+    updateItemAttributeValue as mockUpdateItemAttributeValue
+} from '../../datastore/actions'
 import ItemAttributesPane from '../ItemAttributesPane'
+
+jest.mock('../../datastore/actions')
+mockAddAttribute.mockImplementation(()=>()=>null)
+mockUpdateItemAttributeValue.mockImplementation(()=>()=>null)
+
 
 const render = (component, state={attributes: []})=> renderWithProvider(component, state)
 describe("ItemAttributesPane Test", ()=>{
     it('should dispatch addAttribute action when add button clicked', ()=>{
-        const [rendered, store] = render(<ItemAttributesPane item='Mock Item'></ItemAttributesPane>)
+        const [ rendered ] = render(<ItemAttributesPane item={{title: 'Mock Item', values:{}}}></ItemAttributesPane>)
 
         const input = rendered.getByPlaceholderText('add new attribute')
         const addButton = rendered.getByTestId('btnAdd')
@@ -15,10 +23,7 @@ describe("ItemAttributesPane Test", ()=>{
         fireEvent.change(input, {target:{value:'Name'}})
         fireEvent.click(addButton)
 
-        fireEvent.change(input, {target:{value:'Age'}})
-        fireEvent.click(addButton)
-
-        expect(store.getActions()).toEqual([addAttribute('Name'), addAttribute('Age')])
+        expect(mockAddAttribute).toBeCalledWith('Name')
     })
 
     it('should display title of item passed to it', ()=>{
@@ -39,10 +44,10 @@ describe("ItemAttributesPane Test", ()=>{
             item={initialState.items['Item 2']}/>, initialState)
         const input = rendered.getByTestId('attr-2')
         fireEvent.change(input, {target: {value: 'fake attr value'}})
-        const [action] = store.getActions()
-        expect(action).toEqual(
-            updateItemAttributeValue(initialState.items['Item 2'], 'attr 3', 'fake attr value')
-        )
+        
+        expect(mockUpdateItemAttributeValue).
+            toBeCalledWith(initialState.items['Item 2'], 'attr 3', 'fake attr value')
+
     })
 
     it('should load attribute values to the text fields', ()=>{

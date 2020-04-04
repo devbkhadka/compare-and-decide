@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Paper, Tabs, Tab, Box, makeStyles, IconButton } from '@material-ui/core'
 import {ArrowBack, ArrowForward} from '@material-ui/icons';
-import TabPanel from './tab_panel'
+import TabPanel from './TabPanel'
 
 import formattedText from '../utils/translations'
 
