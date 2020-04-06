@@ -9,8 +9,8 @@ describe('Dashboard Component Test', ()=>{
         const rendered = render(<Dashboard></Dashboard>)
 
         rendered.getByText('Overview >>')
-        rendered.getByText('Add Items Pane >>')
-        rendered.getByText('Add Items Grid >>')
+        rendered.getByText('Add Items >>')
+        rendered.getByText('Compare >>')
         
         // should have rendered first tab overview
         rendered.getByTestId('overview')

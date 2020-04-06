@@ -6,16 +6,21 @@ import {addItemWithTitle,
     ITEMS_KEY,
     ATTRIBUTES_KEY,
     updateAttributes,
-    updateItemAttributeValue
+    updateItemAttributeValue,
+    setPreferedItemTitle,
+    PREFETED_ITEM_TITLE_KEY,
+    updatePreferedItemTitle as updatePreferedItemTitle,
+    rejectItem
 } from '../actions'
+import { COMPARISION_STATUS } from '../reducer'
 
 describe('Test actions', ()=>{
-    beforeEach(()=>{
-        jest.spyOn(Storage.prototype, 'setItem').mockImplementation(()=>null)
-    })
+    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(()=>null)
+    jest.spyOn(Storage.prototype, 'getItem')
 
-    afterEach(()=>{
-        jest.restoreAllMocks()
+    beforeEach(()=>{
+        Storage.prototype.setItem.mockClear()
+        Storage.prototype.getItem.mockClear()
     })
 
     describe('Items', ()=>{
@@ -87,7 +92,7 @@ describe('Test actions', ()=>{
 
             }
             const mockDispatch = jest.fn()
-            jest.spyOn(Storage.prototype, 'getItem').
+            Storage.prototype.getItem.
                 mockImplementation((key)=>key==ITEMS_KEY? JSON.stringify(mockItems): null)
             
             loadStateFromStorage()(mockDispatch)
@@ -98,7 +103,7 @@ describe('Test actions', ()=>{
         
         it('doesn\'t update state if localstorage donot have items ', ()=>{
             const mockDispatch = jest.fn()
-            jest.spyOn(Storage.prototype, 'getItem').
+            Storage.prototype.getItem.
                 mockImplementation(()=>null)
 
             loadStateFromStorage()(mockDispatch)
@@ -132,7 +137,7 @@ describe('Test actions', ()=>{
 
         test('loadStateFromStorage loads attributes from storage', ()=>{
             const attributes = ['attr 1', 'attr 2']
-            jest.spyOn(Storage.prototype, 'getItem').
+            Storage.prototype.getItem.
                 mockImplementation((key)=>key==ATTRIBUTES_KEY? JSON.stringify(attributes): null)
             const mockDispatch = jest.fn()
             
@@ -144,7 +149,7 @@ describe('Test actions', ()=>{
 
         test('loadStateFromStorage donot update attributes if not exists on storage', ()=>{
             const mockDispatch = jest.fn()
-            jest.spyOn(Storage.prototype, 'getItem').
+            Storage.prototype.getItem.
                 mockImplementation((key)=>null)
 
             loadStateFromStorage()(mockDispatch)
@@ -171,6 +176,58 @@ describe('Test actions', ()=>{
             expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(state.items))
             expect(mockDispatch).toBeCalledWith(updateItems(state.items))
         })
+    })
+
+    describe('setPreferedItemTitle', ()=>{
+        const state = {
+            items: {
+                'Item 1':{title: 'Item 1', values: {}}, 
+                'Item 2': {title: 'Item 2', values: {}}, 
+                'Item 3': {title: 'Item 3', values: {}}
+            }
+        }
+
+        beforeEach(()=>{
+            jest.resetAllMocks()
+        })
+
+        it('should set prefered item and save it to localstorage', ()=>{
+            const mockDispatch = jest.fn()
+            const mockGetState = ()=>state
+            setPreferedItemTitle(state.items['Item 2'].title)(mockDispatch, mockGetState)
+            const expectedItem = state.items['Item 2']
+            expectedItem.comparisionStatus = COMPARISION_STATUS.ITEM_PREFERED
+
+            expect(localStorage.setItem).toBeCalledWith(PREFETED_ITEM_TITLE_KEY, expectedItem.title)
+            expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(state.items))
+            expect(mockDispatch).toBeCalledWith(updatePreferedItemTitle(expectedItem.title))
+            expect(mockDispatch).toBeCalledWith(updateItems(state.items))
+        })
+
+        it('loadStateFromStorage should load preferedItemTitle', ()=>{
+            Storage.prototype.getItem.
+                mockImplementation((key)=>key==PREFETED_ITEM_TITLE_KEY? 'saved prefered item title': null)
+            const mockDispatch = jest.fn()
+            
+            loadStateFromStorage()(mockDispatch)
+            expect(localStorage.getItem).toBeCalledWith(PREFETED_ITEM_TITLE_KEY)
+            expect(mockDispatch).toBeCalledWith(updatePreferedItemTitle('saved prefered item title'))
+        })
+    })
+
+    test('rejectItem sets item to be reject and save items to localstorege', ()=>{
+        const state = {
+            items: {
+                'Item 1':{title: 'Item 1', values: {}}, 
+                'Item 2': {title: 'Item 2', values: {}}, 
+                'Item 3': {title: 'Item 3', values: {}}
+            }
+        }
+        const mockDispatch = jest.fn()
+        rejectItem('Item 2')(mockDispatch, ()=>state)
+        state.items['Item 2'].comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
+        expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(state.items))
+        expect(mockDispatch).toBeCalledWith(updateItems(state.items))
     })
 
 

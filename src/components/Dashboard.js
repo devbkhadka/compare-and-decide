@@ -5,21 +5,19 @@ import {defineMessages} from 'react-intl'
 import TabbedWizard from './Wizard'
 import Overview from './Overview'
 import AddItemsPane from './AddItemsPane'
-import AddItemsGrid from './AddItemsGrid'
+import Compare from './Compare'
 
 
 const steps = [ 
     defineMessages({overview: 'Overview >>'}), 
-    defineMessages({addItemPane: 'Add Items Pane >>'}), 
-    defineMessages({addItemGrid: 'Add Items Grid >>'}), 
-    defineMessages({tab3: 'tab3 >>'})
+    defineMessages({addItemPane: 'Add Items >>'}), 
+    defineMessages({addItemGrid: 'Compare >>'})
   ]
 
 export default function Dashboard() {
     return <TabbedWizard tabs={steps}>
         <Overview />
         <AddItemsPane />
-        <AddItemsGrid />
-        <div>Tab 3</div>
+        <Compare />
     </TabbedWizard>
 }

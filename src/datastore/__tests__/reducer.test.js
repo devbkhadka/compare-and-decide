@@ -1,5 +1,5 @@
 import reducer from '../reducer'
-import { updateItems, updateLanguage, addAttribute, updateItemAttributeValue, updateAttributes} from '../actions'
+import { updateItems, updateLanguage, updateAttributes, updatePreferedItemTitle} from '../actions'
 
 describe('Reducer', ()=>{
     describe('Operations on Items', ()=>{
@@ -54,6 +54,14 @@ describe('Reducer', ()=>{
             expect(newState.attributes).toEqual(attributes)
             expect(newState.attributes).not.toBe(attributes)
     
+        })
+    })
+
+    describe('PreferedItemTitle', ()=>{
+        it('should be able to update prefered item title', ()=>{
+            const state = {PreferedItemTitle: 'old prefered item'}
+            const newState = reducer(state, updatePreferedItemTitle('new prefered item'))
+            expect(newState.preferedItemTitle).toBe('new prefered item')
         })
     })
 })

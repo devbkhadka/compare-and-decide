@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ComparisionGridPane Component When prefered item is selected and all comparision finished should show last prefered item as selection 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiBox-root MuiBox-root-730 makeStyles-root-724"
+      data-testid="root-content"
+    >
+      <div
+        class="MuiGrid-root makeStyles-content-726 MuiGrid-container MuiGrid-spacing-xs-2"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+        >
+          <h5
+            class="MuiTypography-root Component-root-834 MuiTypography-h5"
+          >
+            You have choosen "
+            Item2
+            "
+          </h5>
+        </div>
+        <div
+          class="MuiGrid-root makeStyles-attribute-727 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            attr1
+          </p>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-8"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          />
+        </div>
+        <div
+          class="MuiGrid-root makeStyles-attribute-727 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            attr2
+          </p>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-8"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            Item2-Value2
+          </p>
+        </div>
+        <div
+          class="MuiGrid-root makeStyles-attribute-727 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            attr3
+          </p>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-8"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            Item2-Value3
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
