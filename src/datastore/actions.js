@@ -1,10 +1,14 @@
 import { UPDATE_ITEMS, 
     UPDATE_LANGUAGE, 
-    UPDATE_ATTRIBUTES
+    UPDATE_ATTRIBUTES,
+    UPDATE_PREFERRED_ITEM
 } from './constants'
+
+import {COMPARISION_STATUS} from './reducer'
 
 export const ITEMS_KEY = 'items-key'
 export const ATTRIBUTES_KEY = 'attributes-key'
+export const PREFETED_ITEM_TITLE_KEY = 'prefered-item-key'
 
 export function addItemWithTitle(title) {
     return (dispatch, getState) => {
@@ -34,6 +38,11 @@ export function loadStateFromStorage() {
         const attributesJson = localStorage.getItem(ATTRIBUTES_KEY)
         if(attributesJson) {
             dispatch(updateAttributes(JSON.parse(attributesJson)))
+        }
+
+        const preferedItemTitle = localStorage.getItem(PREFETED_ITEM_TITLE_KEY)
+        if(preferedItemTitle){
+            dispatch(updatePreferedItemTitle(preferedItemTitle))
         }
     }
 }
@@ -78,5 +87,47 @@ export function updateItemAttributeValue(item, attr, value) {
         
         localStorage.setItem(ITEMS_KEY, JSON.stringify(newItems))
         dispatch(updateItems(newItems))
+    }
+}
+
+export function setPreferedItemTitle(itemTitle) {
+    return (dispatch, getState) => {
+        const state = getState()
+        const curPreferedTitle = state.preferedItemTitle
+
+        const item = state.items[itemTitle]
+        if(!item) {
+            // TODO: This branch not tested
+            return
+        }
+        if(curPreferedTitle){
+            // TODO: This branch not tested
+            state.items[curPreferedTitle].comparisionStatus = undefined
+        }
+        item.comparisionStatus = COMPARISION_STATUS.ITEM_PREFERED
+
+        localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items))
+        localStorage.setItem(PREFETED_ITEM_TITLE_KEY, item.title)
+
+        dispatch(updateItems(state.items))
+        dispatch(updatePreferedItemTitle(item.title))
+        
+    }
+}
+
+export function updatePreferedItemTitle(itemTitle) {
+    return {
+        type: UPDATE_PREFERRED_ITEM,
+        data: itemTitle
+    }
+}
+
+export function rejectItem(itemTitle){
+    return (dispatch, getState) => {
+        const state = getState()
+        state.items[itemTitle].comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
+
+        localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items))
+        dispatch(updateItems(state.items))
     }
 }

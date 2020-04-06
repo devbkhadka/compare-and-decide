@@ -10,9 +10,9 @@
   "components.ItemListPane.addBtnText": "थप्नुहोस",
   "components.ItemListPane.addNewItem": "नया बस्तु थप्नुहोस",
   "components.ItemListPane.title": "सुची",
-  "components.overview.step1": "दाज्ञुपर्नॆ कुराहरु थप्नुहोस",
-  "components.overview.step2": "तपाइको पहिलो रोजाई छान्नुहोस्",
-  "components.overview.step3": "तपाईको आहेलेको पहिलो रोजाई संग प्रतेक बस्तु संग दाज्नुहोस। प्रतेक चोटी दाज्दा एउटा  पहिलो रोजाई छान्नुहोस् र आर्कोलाई सुचीबाट जिक्नुहोस",
-  "components.overview.step4": "बाकी रहेको पहिलो रोजाईनै तपाईको रोजाई हो।",
-  "components.overview.title": "तीन सजिलो पहिलामा निर्णय लिनुहोस्"
+  "components.Overview.step1": "दाज्ञुपर्नॆ कुराहरु थप्नुहोस",
+  "components.Overview.step2": "तपाइको पहिलो रोजाई छान्नुहोस्",
+  "components.Overview.step3": "तपाईको आहेलेको पहिलो रोजाई संग प्रतेक बस्तु संग दाज्नुहोस। प्रतेक चोटी दाज्दा एउटा  पहिलो रोजाई छान्नुहोस् र आर्कोलाई सुचीबाट जिक्नुहोस",
+  "components.Overview.step4": "बाकी रहेको पहिलो रोजाईनै तपाईको रोजाई हो।",
+  "components.Overview.title": "तीन सजिलो पहिलामा निर्णय लिनुहोस्"
 }

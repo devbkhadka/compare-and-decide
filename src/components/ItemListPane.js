@@ -3,30 +3,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     TextField, 
     Tabs, 
-    Tab, 
     Box,
     IconButton,
     Typography,
-    withStyles,
     useTheme,
 } from '@material-ui/core'
 import {AddCircleRounded as Add} from '@material-ui/icons'
 import { addItemWithTitle } from '../datastore/actions'
 import { defineMessages, FormattedMessage } from 'react-intl'
-
-const StyledTab = withStyles(theme=>({
-    wrapper: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start'
-    },
-    wrapped: {
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        '&.Mui-selected': {
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.secondary.contrastText
-        }
-    }
-})) (Tab)
+import StyledTab from './shared/StyledTab'
 
 const messages = defineMessages({
     title: 'Items',
@@ -50,6 +35,7 @@ export default function ItemListPane({ onItemSelected }) {
 
     const handleKeyUp = (e) => {
         if(e.key === 'Enter'){
+            //TODO: This branch not tested
             handleAdd(e)
         }
     }

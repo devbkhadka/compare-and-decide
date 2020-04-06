@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme=>({
     },
     rightPanel: {
         marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
         flexGrow: 1
     }
 }))
