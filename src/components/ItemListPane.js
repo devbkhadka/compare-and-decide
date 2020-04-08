@@ -7,11 +7,12 @@ import {
     IconButton,
     useTheme,
 } from '@material-ui/core'
-import {AddCircleRounded as Add} from '@material-ui/icons'
-import { addItemWithTitle } from '../datastore/actions'
+import {AddCircleRounded as Add, Delete} from '@material-ui/icons'
+import { addItemWithTitle, deleteItem } from '../datastore/actions'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import StyledTab from './shared/StyledTab'
 import Title from './shared/Title'
+import ConfirmDialog from './shared/ConfirmDialog'
 
 const messages = defineMessages({
     title: 'Items',
@@ -21,6 +22,7 @@ const messages = defineMessages({
 
 export default function ItemListPane({ onItemSelected }) {
     const [itemTitle, setItemTitle] = useState('')
+    const [deleteItemTitle, triggerDeleteFor] = useState(null)
     const items = useSelector(state=>state.items)
     const dispatch = useDispatch()
 
@@ -43,6 +45,19 @@ export default function ItemListPane({ onItemSelected }) {
     const handleActiveItemChanged = (newValue) => {
         setActiveTab(newValue)
         onItemSelected && onItemSelected(items[Object.keys(items)[newValue]])
+    }
+
+    const confirmItemDeletion = (e) =>{
+        e.stopPropagation()
+        const key = e.currentTarget.getAttribute('data-key')
+        triggerDeleteFor(key)
+    }
+
+    const deleteItemConfirmed = (yes, itemTitle)=> {
+        if(yes) {
+            dispatch(deleteItem(itemTitle))
+        }
+        triggerDeleteFor(null)
     }
 
     useEffect(()=>{
@@ -70,8 +85,17 @@ export default function ItemListPane({ onItemSelected }) {
         <Tabs orientation="vertical" variant="scrollable" value={activeTab}
             onChange={(e, value)=>handleActiveItemChanged(value)}>
             {
-                Object.keys(items).map((key, i)=><StyledTab key={i} label={items[key].title} wrapped/>)
+                Object.keys(items).map((key, i)=>
+                    <StyledTab key={i} label={items[key].title} wrapped
+                        icon={<Delete data-key={key} onClick={confirmItemDeletion} color='action' />}
+                    />
+                )
             }
         </Tabs>
+        <ConfirmDialog title="Alert!" 
+            message={`Are you sure you want to delete "${deleteItemTitle}"`} 
+            data={deleteItemTitle} 
+            onConfirmed={deleteItemConfirmed}
+            />
     </>
 }

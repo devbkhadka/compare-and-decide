@@ -1,15 +1,24 @@
 import React from 'react'
+import { fireEvent, act } from '@testing-library/react'
+import * as ReactRedux from 'react-redux'
 import { renderWithProvider } from '../../utils/testUtils'
-import { fireEvent } from '@testing-library/react'
-import { addItemWithTitle as mockAddItemWithTitle } from '../../datastore/actions'
+import { addItemWithTitle as mockAddItemWithTitle, deleteItem } from '../../datastore/actions'
 import ItemListPane from '../ItemListPane'
+import * as fixtures from '../../utils/fixtures'
+import ConfirmDialog from '../shared/ConfirmDialog'
 
 const render = (component, state={items:{}})=> renderWithProvider(component, state)
 
 jest.mock('../../datastore/actions')
+const mockDispatch = jest.fn()
+jest.spyOn(ReactRedux, 'useDispatch')
+ReactRedux.useDispatch.mockImplementation(()=>mockDispatch)
+jest.mock('../shared/ConfirmDialog')
+ConfirmDialog.mockImplementation(()=>null)
+
 describe("ItemListPane Test", ()=>{
     beforeEach(()=>{
-        mockAddItemWithTitle.mockImplementation(()=>(()=>{}))
+        mockDispatch.mockClear()
     })
     it('should dispatch addItemWithTitle action when add button clicked', async ()=>{
         const [rendered] = render(<ItemListPane></ItemListPane>)
@@ -21,6 +30,7 @@ describe("ItemListPane Test", ()=>{
         fireEvent.click(addButton)
 
         expect(mockAddItemWithTitle).toBeCalledWith('Item 1')
+        expect(mockDispatch).toBeCalledWith(mockAddItemWithTitle())
     })
 
     it('should match saved snapshot', ()=>{
@@ -70,4 +80,36 @@ describe("ItemListPane Test", ()=>{
         
         expect(mockOnItemSelected).toBeCalledWith({title: 'Item1'})
     })
+
+    describe('Item Deletion', ()=>{
+        beforeEach(()=>{
+            const items = fixtures.getDummyItems()
+            const [{getByText}] = render(<ItemListPane />, {items})
+    
+            ConfirmDialog.mockClear()
+            const elemItem2 = getByText('Item2')
+            const btnDelete = elemItem2.querySelector('svg')
+            deleteItem.mockClear()
+            mockDispatch.mockClear()
+            fireEvent.click(btnDelete)
+        })
+        it('should open confirm dialog when delete icon clicked', ()=>{
+            const {data} = ConfirmDialog.mock.calls[0][0]
+            expect(data).toBe('Item2')
+        })
+    
+        it('should dispatch deleteItem action if confirmed', ()=>{
+            const {onConfirmed, data} = ConfirmDialog.mock.calls[0][0]
+            act(()=>onConfirmed(true, data))
+            expect(deleteItem).toBeCalledWith('Item2')
+            expect(mockDispatch).toBeCalledWith(deleteItem())
+        })
+
+        it('should not dispatch deleteItem action if canceled', ()=>{
+            const {onConfirmed, data} = ConfirmDialog.mock.calls[0][0]
+            act(()=>onConfirmed(false, data))
+            expect(mockDispatch).not.toBeCalled()
+        })
+    })
+    
 })

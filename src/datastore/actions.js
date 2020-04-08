@@ -148,3 +148,13 @@ export function deleteAttribute(attribute) {
         dispatch(updateItems(items))
     }
 }
+
+export function deleteItem(itemTitle) {
+    return (dispatch, getState) => {
+        const {items} = getState()
+        delete items[itemTitle]
+
+        localStorage.setItem(ITEMS_KEY, JSON.stringify(items))
+        dispatch(updateItems(items))
+    }
+}
