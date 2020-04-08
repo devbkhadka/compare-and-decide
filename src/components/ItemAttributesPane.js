@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     Box,
-    Typography,
     TextField,
-    IconButton,
-    useTheme,
-    makeStyles
+    makeStyles,
+    Button
 } from '@material-ui/core'
-import {AddCircleRounded as Add} from '@material-ui/icons'
 import { FormattedMessage, defineMessages } from 'react-intl'
-import { addAttribute, updateItemAttributeValue } from '../datastore/actions'
+import { updateItemAttributeValue } from '../datastore/actions'
+import ManageAttributes from './ManageAttributes'
+import Title from './shared/Title'
 
 const useStyles = makeStyles(theme=>({
     textFieldContainer: {
@@ -31,61 +30,36 @@ const useStyles = makeStyles(theme=>({
     }
 }))
 
-
 const messages = defineMessages({
     attributes: 'Attributes',
     addAttribute: 'add new attribute',
     addBtnText: 'Add'
 })
 
-
-
 export default function ItemAttributesPane({item}) {
-    const [attrName, setAttrName] = useState('')
     const attributes = useSelector(state=>state.attributes)
     const dispatch = useDispatch()
     const classes = useStyles()
-
-    
-    const handleAdd = (e)=>{
-        dispatch(addAttribute(attrName))
-        setAttrName('')
-    }
-
-    const handleAttNameChanged = (e)=>{
-        setAttrName(e.target.value)
-    }
-
-    const handleKeyUp = (e) => {
-        if(e.key === 'Enter'){
-            handleAdd(e)
-        }
-    }
+    const [openDialog, setOpenDialog] = useState(false)
 
     const handleAttrValueChanged = (i, attribute, value)=>{
         dispatch(updateItemAttributeValue(i, attribute, value))
     }
 
-    const theme = useTheme()
+    const showDialog = ()=> {
+        setOpenDialog(true)
+    }
+    const closeDialog = ()=> {
+        setOpenDialog(false)
+    }
+
     return <>
-        <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
-            {item? item.title: <FormattedMessage {...messages.attributes} />}
-        </Typography>
-        <Box display='flex'>
-            <FormattedMessage {...messages.addAttribute}>
-                {(placeholder)=>
-                    <TextField style={{flexGrow:1}} name='addAttributes' 
-                    placeholder={placeholder}
-                    onChange={handleAttNameChanged} value={attrName}
-                    onKeyUp = {handleKeyUp}
-                    />
-                }
-            </FormattedMessage>
-            <IconButton data-testid='btnAdd' onClick={handleAdd}>
-            <Add><FormattedMessage {...messages.addBtnText}/></Add>
-            </IconButton>
+        <Box display='flex' justifyContent="space-between" alignItems='center'>
+            <Title style={{flexGrow:1}}>
+                {item? item.title: <FormattedMessage {...messages.attributes} />}
+            </Title>
+            <Button variant="contained" style={{margin: 8, flexShrink:1}} onClick={ showDialog }>Manage Attributes</Button>
         </Box>
-        
         
         <Box className={classes.textFieldContainer}>
             { attributes.map((attr, i)=> 
@@ -97,5 +71,9 @@ export default function ItemAttributesPane({item}) {
                     label={attr}/>
             )}
         </Box>
+
+        
+
+        <ManageAttributes open={openDialog} onClose={closeDialog}></ManageAttributes>
     </>
 }

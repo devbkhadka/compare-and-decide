@@ -10,9 +10,11 @@ import {addItemWithTitle,
     setPreferedItemTitle,
     PREFETED_ITEM_TITLE_KEY,
     updatePreferedItemTitle as updatePreferedItemTitle,
-    rejectItem
+    rejectItem,
+    deleteAttribute
 } from '../actions'
 import { COMPARISION_STATUS } from '../reducer'
+import * as fixtures from '../../utils/fixtures'
 
 describe('Test actions', ()=>{
     jest.spyOn(Storage.prototype, 'setItem').mockImplementation(()=>null)
@@ -28,7 +30,7 @@ describe('Test actions', ()=>{
             addItemWithTitle('Item 1')(jest.fn(), ()=>({items:{}}))
             let expectedState = {
                 items: {
-                    ['Item 1']: {
+                    'Item 1': {
                         title: 'Item 1',
                         values: {}
                     }
@@ -131,6 +133,14 @@ describe('Test actions', ()=>{
             expect(mockDispatch).not.toBeCalled()
         })
 
+        test('addAttribute doesn\'t add duplicate attribute', ()=>{
+            const initialState = {attributes: ['attr 1', 'attr 2']}
+            const mockDispatch = jest.fn()
+
+            addAttribute('attr 1')(mockDispatch, ()=>initialState)
+            expect(mockDispatch).not.toBeCalled()
+        })
+
         test('updateAttributes returns action correctly', ()=>{
             expect(updateAttributes('Attr 1')).toMatchSnapshot()
         })
@@ -155,6 +165,32 @@ describe('Test actions', ()=>{
             loadStateFromStorage()(mockDispatch)
             expect(mockDispatch).not.toBeCalled()
         })
+
+        test('deleteAttribute deletes given attribute and save attributes to storage', ()=>{
+            const mockDispatch = jest.fn()
+            const attributes = fixtures.getDummyAttributes()
+            
+            deleteAttribute(attributes[2])(mockDispatch, ()=>({attributes}))
+
+            const expectedAttributes = fixtures.getDummyAttributesDelAttr3()
+            expect(localStorage.setItem).
+                toBeCalledWith(ATTRIBUTES_KEY, JSON.stringify(expectedAttributes))
+            expect(mockDispatch).toBeCalledWith(updateAttributes(expectedAttributes))
+        })
+
+        test('deleteAttribute removes deleted attributes from all items', ()=>{
+            const mockDispatch = jest.fn()
+            const attributes = fixtures.getDummyAttributes()
+            const items = fixtures.getDummyItemsWithValues()
+            
+            deleteAttribute(attributes[2])(mockDispatch, ()=>({attributes, items}))
+
+            const expectedItems = fixtures.getDummyItemsDelAttr3()
+            expect(localStorage.setItem).
+                toBeCalledWith(ITEMS_KEY, JSON.stringify(expectedItems))
+            expect(mockDispatch).toBeCalledWith(updateItems(expectedItems))
+        })
+
     })
 
     describe('updateItemAttributeValue', ()=>{
@@ -216,16 +252,11 @@ describe('Test actions', ()=>{
     })
 
     test('rejectItem sets item to be reject and save items to localstorege', ()=>{
-        const state = {
-            items: {
-                'Item 1':{title: 'Item 1', values: {}}, 
-                'Item 2': {title: 'Item 2', values: {}}, 
-                'Item 3': {title: 'Item 3', values: {}}
-            }
-        }
+        const state = fixtures.getDummyState()
         const mockDispatch = jest.fn()
-        rejectItem('Item 2')(mockDispatch, ()=>state)
-        state.items['Item 2'].comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
+        const item2 = state.items[Object.keys(state.items)[1]]
+        rejectItem(item2.title)(mockDispatch, ()=>state)
+        item2.comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
         expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(state.items))
         expect(mockDispatch).toBeCalledWith(updateItems(state.items))
     })

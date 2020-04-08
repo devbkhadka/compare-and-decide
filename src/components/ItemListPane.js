@@ -5,13 +5,13 @@ import {
     Tabs, 
     Box,
     IconButton,
-    Typography,
     useTheme,
 } from '@material-ui/core'
 import {AddCircleRounded as Add} from '@material-ui/icons'
 import { addItemWithTitle } from '../datastore/actions'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import StyledTab from './shared/StyledTab'
+import Title from './shared/Title'
 
 const messages = defineMessages({
     title: 'Items',
@@ -52,9 +52,9 @@ export default function ItemListPane({ onItemSelected }) {
     })
     const theme = useTheme()
     return <>
-        <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
+        <Title>
             <FormattedMessage {...messages.title}/>
-        </Typography>
+        </Title>
         <Box display='flex' style={{marginRight: theme.spacing(1)}}>
             <FormattedMessage {...messages.addNewItem}>
                 { (addNewItem)=>
