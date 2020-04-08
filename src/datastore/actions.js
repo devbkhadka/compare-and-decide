@@ -23,8 +23,7 @@ export function addItemWithTitle(title) {
             values: {}
         }
         state.items[item.title] = item
-        localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items))
-        dispatch(updateItems(state.items))
+        updateAndSaveItems(state.items, dispatch)
     }
 }
 
@@ -66,8 +65,8 @@ export function addAttribute(attribute) {
         const attributes = getState().attributes
         if(attribute && attributes.indexOf(attribute)===-1) {
             attributes.push(attribute)
-            localStorage.setItem(ATTRIBUTES_KEY, JSON.stringify(attributes))
-            dispatch(updateAttributes(attributes))
+
+            updateAndSaveAttributes(attributes, dispatch)
         }
     }
 }
@@ -85,8 +84,7 @@ export function updateItemAttributeValue(item, attr, value) {
         const newItems = {...state.items}
         newItems[item.title] = {...item, values: {...item.values, [attr]: value}}
         
-        localStorage.setItem(ITEMS_KEY, JSON.stringify(newItems))
-        dispatch(updateItems(newItems))
+        updateAndSaveItems(newItems, dispatch)
     }
 }
 
@@ -100,17 +98,14 @@ export function setPreferedItemTitle(itemTitle) {
             // TODO: This branch not tested
             return
         }
-        if(curPreferedTitle){
+        if(curPreferedTitle && state.items[curPreferedTitle]){
             // TODO: This branch not tested
             state.items[curPreferedTitle].comparisionStatus = undefined
         }
         item.comparisionStatus = COMPARISION_STATUS.ITEM_PREFERED
 
-        localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items))
-        localStorage.setItem(PREFETED_ITEM_TITLE_KEY, item.title)
-
-        dispatch(updateItems(state.items))
-        dispatch(updatePreferedItemTitle(item.title))
+        updateAndSaveItems(state.items, dispatch)
+        updateAndSavePreferedItemTitle(itemTitle, dispatch)
         
     }
 }
@@ -127,8 +122,7 @@ export function rejectItem(itemTitle){
         const state = getState()
         state.items[itemTitle].comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
 
-        localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items))
-        dispatch(updateItems(state.items))
+        updateAndSaveItems(state.items, dispatch)
     }
 }
 
@@ -142,10 +136,8 @@ export function deleteAttribute(attribute) {
             delete values[attribute]
         }
 
-        localStorage.setItem(ATTRIBUTES_KEY, JSON.stringify(newAttributes))
-        localStorage.setItem(ITEMS_KEY, JSON.stringify(items))
-        dispatch(updateAttributes(newAttributes))
-        dispatch(updateItems(items))
+        updateAndSaveItems(items, dispatch)
+        updateAndSaveAttributes(newAttributes, dispatch)
     }
 }
 
@@ -154,7 +146,33 @@ export function deleteItem(itemTitle) {
         const {items} = getState()
         delete items[itemTitle]
 
-        localStorage.setItem(ITEMS_KEY, JSON.stringify(items))
-        dispatch(updateItems(items))
+        updateAndSaveItems(items, dispatch)
     }
+}
+
+export function clearComparisionStatus(itemTitle) {
+    return (dispatch, getState) => {
+        const {items, preferedItemTitle} = getState()
+        items[itemTitle].comparisionStatus = undefined
+        updateAndSaveItems(items, dispatch)
+        if(preferedItemTitle===itemTitle) {
+            updateAndSavePreferedItemTitle(undefined, dispatch)
+        }
+    }
+}
+
+
+function updateAndSaveItems(items, dispatch) {
+    localStorage.setItem(ITEMS_KEY, JSON.stringify(items))
+    dispatch(updateItems(items))
+}
+
+function updateAndSavePreferedItemTitle(itemTitle, dispatch) {
+    localStorage.setItem(PREFETED_ITEM_TITLE_KEY, itemTitle)
+    dispatch(updatePreferedItemTitle(itemTitle))
+}
+
+function updateAndSaveAttributes(attributes, dispatch) {
+    localStorage.setItem(ATTRIBUTES_KEY, JSON.stringify(attributes))
+    dispatch(updateAttributes(attributes))
 }

@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTheme, Typography, Box, makeStyles } from '@material-ui/core'
+import { Undo } from '@material-ui/icons'
 
 import StyledTab from './shared/StyledTab'
-import { setPreferedItemTitle } from '../datastore/actions'
+import { setPreferedItemTitle, clearComparisionStatus } from '../datastore/actions'
 import { remainingItemsSelector, rejectedItemsSelector } from '../datastore/selectors'
 
 const useStyles = makeStyles((theme)=>({
@@ -27,10 +28,11 @@ const ComparisionListPane =  (props)=> {
             return
         }
         const selectedItem = remainingItems[newValue]
-        const answer = global.confirm(`Do you want to select "${selectedItem.title}" as prefered item?`)
-        if(answer) {
-            dispatch(setPreferedItemTitle(selectedItem.title))
-        }
+        dispatch(setPreferedItemTitle(selectedItem.title))
+    }
+
+    const handleClearStatus = (title) => {
+        dispatch(clearComparisionStatus(title))
     }
 
     return <>
@@ -39,7 +41,9 @@ const ComparisionListPane =  (props)=> {
                 <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
                     Prefered Item
                 </Typography>
-                <StyledTab label={preferedItem.title} wrapped/>
+                <StyledTab label={preferedItem.title} wrapped
+                    icon={<Undo color='action' onClick={()=>handleClearStatus(preferedItem.title)}/>}
+                />
             </Box>
         }
         {remainingItems.length>0 &&
@@ -58,7 +62,11 @@ const ComparisionListPane =  (props)=> {
                 <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
                     Rejected Items
                 </Typography>
-                {rejectedItems.map(item=><StyledTab key={item.title} label={item.title} wrapped/>)}
+                {rejectedItems.map(item=>
+                    <StyledTab key={item.title} label={item.title} wrapped
+                        icon={<Undo color='action' onClick={()=>handleClearStatus(item.title)} />}
+                    />
+                )}
             </Box>
         }
      </>

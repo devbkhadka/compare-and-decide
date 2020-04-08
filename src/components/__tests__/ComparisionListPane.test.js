@@ -1,51 +1,32 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
 import {within, fireEvent} from '@testing-library/dom'
+import * as ReactRedux from 'react-redux'
 import { renderWithProvider } from '../../utils/testUtils'
 import ComparisionListPane from '../ComparisionListPane'
-import {setPreferedItemTitle as mockSetPreferedItem} from '../../datastore/actions'
+import {
+    setPreferedItemTitle as mockSetPreferedItem,
+    clearComparisionStatus as mockClearComparisionStatus
+} from '../../datastore/actions'
 import { COMPARISION_STATUS } from '../../datastore/reducer'
+import * as fixtures from '../../utils/fixtures'
 
 
 jest.mock('../../datastore/actions')
+jest.spyOn(ReactRedux, 'useDispatch')
+ReactRedux.useDispatch.mockReturnValue(jest.fn())
+mockSetPreferedItem.mockReturnValue(jest.fn())
+mockClearComparisionStatus.mockReturnValue(jest.fn())
 
 describe('ComparisionListPane Component', ()=>{
-    const getStateCopy = () =>{
-        const baseState = {
-            items: {
-                Item1: {
-                    title: 'Item1',
-                    values: {}
-                },
-                Item2: {
-                    title: 'Item2',
-                    values: {}
-                },
-                Item3: {
-                    title: 'Item3',
-                    values: {}
-                },
-                Item4: {
-                    title: 'Item4',
-                    values: {}
-                }
-            },
-            attributes: ['attr1', 'attr2', 'attr3', 'attr4']
-        }
-
-        return JSON.parse(JSON.stringify(baseState))
-
-    }
-
     
     describe("When prefered item not selected", ()=>{
         beforeEach(()=>{
-            jest.restoreAllMocks()
-            jest.resetAllMocks()
+            ReactRedux.useDispatch.mockClear()
+            mockSetPreferedItem.mockClear()
         })
 
         it('Should list all items under "Remaining Items" section', ()=>{
-            const state = getStateCopy()
+            const state = fixtures.getDummyState()
             const [rendered] = renderWithProvider(<ComparisionListPane/>, state)
 
             const sectionRemainingItems = rendered.getByText('Remaining Items')
@@ -58,45 +39,26 @@ describe('ComparisionListPane Component', ()=>{
         })
 
         it('Should be able to select one item as prefered item', ()=>{
-            const state = getStateCopy()
+            const state = fixtures.getDummyState()
             const [rendered, store] = renderWithProvider(<ComparisionListPane/>, state)
             
-            jest.spyOn(global, "confirm").mockImplementation(()=>true)
-            const func = jest.fn()
-            mockSetPreferedItem.mockImplementation(()=>func)
-
             const item3 = rendered.getByText(state.items.Item3.title)
             fireEvent.click(item3)
 
             expect(mockSetPreferedItem).toBeCalledWith(state.items.Item3.title)
-            expect(func.mock.calls[0][0].name).toBe('dispatch')
-            expect(func.mock.calls[0][1].name).toBe('getState')
-            
-        })
-
-        it('should not select prefered item if user cancels the conformation', ()=>{
-            const state = getStateCopy()
-            const [rendered, store] = renderWithProvider(<ComparisionListPane/>, state)
-            
-            jest.spyOn(global, "confirm").mockImplementation(()=>false)
-            mockSetPreferedItem.mockImplementation(()=>()=>null)
-
-            const item2 = rendered.getByText(state.items.Item2.title)
-            fireEvent.click(item2)
-
-            expect(mockSetPreferedItem).not.toBeCalled()
-            mockSetPreferedItem.mockRestore()
+            expect(ReactRedux.useDispatch()).toBeCalledWith(mockSetPreferedItem())
             
         })
 
     })
 
     describe('When prefered item is selected', ()=>{
-        const state = getStateCopy()
+        const state = fixtures.getDummyState()
         beforeEach(()=>{
             const preferedItem = state.items['Item1']
             preferedItem.comparisionStatus = COMPARISION_STATUS.ITEM_PREFERED
             state.preferedItemTitle = preferedItem.title
+            mockSetPreferedItem.mockClear()
         })
 
         it('Should show prefered item under section "Prefered Item"', ()=>{
@@ -116,7 +78,6 @@ describe('ComparisionListPane Component', ()=>{
 
         it('Should not be able to select new prefered item', ()=>{
             const [rendered] = renderWithProvider(<ComparisionListPane/>, state)
-            jest.spyOn(global, "confirm").mockImplementation(()=>true)
             mockSetPreferedItem.mockImplementation(()=>()=>null)
 
             const item2 = rendered.getByText(state.items.Item2.title)
@@ -131,25 +92,44 @@ describe('ComparisionListPane Component', ()=>{
 
 
     describe('When comparison is in progress', ()=>{
-        let state
+        let state, sectionPrefered, sectionRemaining, sectionRejected
         beforeEach(()=>{
-            state = getStateCopy()
+            state = fixtures.getDummyState()
             state.items.Item2.comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
             state.items.Item4.comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
             state.preferedItemTitle = state.items.Item3.title
             state.items.Item3.comparisionStatus = COMPARISION_STATUS.ITEM_PREFERED
-        })
-        it('Should show comparired items under "Rejected Items"', ()=>{
+
             const [rendered] = renderWithProvider(<ComparisionListPane/>, state)
             
-            const section1 = rendered.getByText('Prefered Item').parentElement
-            const section2 = rendered.getByText('Remaining Items').parentElement
-            const section3 = rendered.getByText('Rejected Items').parentElement
+            sectionPrefered = rendered.getByText('Prefered Item').parentElement
+            sectionRemaining = rendered.getByText('Remaining Items').parentElement
+            sectionRejected = rendered.getByText('Rejected Items').parentElement
 
-            
-            within(section1).getByText(state.preferedItemTitle)
-            within(section2).getByText(state.items.Item1.title)
-            expect(within(section3).getAllByText(/Item\d/).length).toBe(2)
+            ReactRedux.useDispatch().mockClear()
+        })
+        it('Should show compaired items under "Rejected Items"', ()=>{  
+            within(sectionPrefered).getByText(state.preferedItemTitle)
+            within(sectionRemaining).getByText(state.items.Item1.title)
+            expect(within(sectionRejected).getAllByText(/Item\d/).length).toBe(2)
+        })
+
+        it('should be able to clear comparision status of rejected item', ()=>{
+            const elemItem4 = within(sectionRejected).getByText(state.items.Item4.title)
+            fireEvent.click(elemItem4.querySelector('svg'))
+
+            expect(mockClearComparisionStatus).toBeCalledWith(state.items.Item4.title)
+            expect(ReactRedux.useDispatch()).
+                toBeCalledWith(mockClearComparisionStatus(state.items.Item4.title))
+        })
+
+        it('should be able to clear comparision status of prefered item', ()=>{
+            const elemItem3 = within(sectionPrefered).getByText(state.items.Item3.title)
+            fireEvent.click(elemItem3.querySelector('svg'))
+
+            expect(mockClearComparisionStatus).toBeCalledWith(state.items.Item3.title)
+            expect(ReactRedux.useDispatch()).
+                toBeCalledWith(mockClearComparisionStatus(state.items.Item3.title))
         })
         
     })

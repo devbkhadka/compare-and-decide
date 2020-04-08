@@ -2,7 +2,12 @@
 
 exports[`Test actions Attributes updateAttributes returns action correctly 1`] = `
 Object {
-  "data": "Attr 1",
+  "data": Array [
+    "attr1",
+    "attr2",
+    "attr3",
+    "attr4",
+  ],
   "type": "UPDATE_ATTRIBUTES",
 }
 `;
@@ -10,11 +15,21 @@ Object {
 exports[`Test actions Items updateItem returns correct item object 1`] = `
 Object {
   "data": Object {
-    "Item 1": Object {
-      "title": "Item 1",
-      "values": Object {
-        "abc": "xyz",
-      },
+    "Item1": Object {
+      "title": "Item1",
+      "values": Object {},
+    },
+    "Item2": Object {
+      "title": "Item2",
+      "values": Object {},
+    },
+    "Item3": Object {
+      "title": "Item3",
+      "values": Object {},
+    },
+    "Item4": Object {
+      "title": "Item4",
+      "values": Object {},
     },
   },
   "type": "UPDATE_ITEMS",
