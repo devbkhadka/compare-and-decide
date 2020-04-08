@@ -11,7 +11,8 @@ import {addItemWithTitle,
     PREFETED_ITEM_TITLE_KEY,
     updatePreferedItemTitle as updatePreferedItemTitle,
     rejectItem,
-    deleteAttribute
+    deleteAttribute,
+    deleteItem
 } from '../actions'
 import { COMPARISION_STATUS } from '../reducer'
 import * as fixtures from '../../utils/fixtures'
@@ -111,6 +112,18 @@ describe('Test actions', ()=>{
             loadStateFromStorage()(mockDispatch)
             
             expect(mockDispatch).not.toBeCalled()
+        })
+    })
+
+    describe('Item Deletion', ()=>{
+        it('should delete item and save the items to localstorage', ()=>{
+            const items = fixtures.getDummyItems()
+            const mockDispatch = jest.fn()
+            deleteItem('Item2')(mockDispatch, ()=>({items}))
+            const expectedItems = fixtures.getDummyItems()
+            delete expectedItems.Item2
+            expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(expectedItems))
+            expect(mockDispatch).toBeCalledWith(updateItems(expectedItems))
         })
     })
 

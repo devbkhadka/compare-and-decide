@@ -1,3 +1,4 @@
+import React from 'react'
 import {withStyles, Tab} from '@material-ui/core'
 
 export default withStyles(theme=>({
@@ -5,8 +6,8 @@ export default withStyles(theme=>({
         width: '100%'
     },
     wrapper: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-between',
     },
     wrapped: {
         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -15,4 +16,4 @@ export default withStyles(theme=>({
             color: theme.palette.secondary.contrastText
         }
     }
-})) (Tab)
+})) (props=><Tab icon={<span></span>} {...props}/>)
