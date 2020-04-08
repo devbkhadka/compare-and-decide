@@ -4,13 +4,12 @@ exports[`ItemListPane Test should match saved snapshot 1`] = `
 <body>
   <div>
     <h5
-      class="MuiTypography-root MuiTypography-h5"
-      style="margin-bottom: 8px;"
+      class="MuiTypography-root Component-root-117 MuiTypography-h5"
     >
       Items
     </h5>
     <div
-      class="MuiBox-root MuiBox-root-147"
+      class="MuiBox-root MuiBox-root-149"
       style="margin-right: 8px;"
     >
       <div
@@ -73,7 +72,7 @@ exports[`ItemListPane Test should match saved snapshot 1`] = `
           role="tablist"
         />
         <span
-          class="PrivateTabIndicator-root-227 PrivateTabIndicator-colorSecondary-229 MuiTabs-indicator PrivateTabIndicator-vertical-230"
+          class="PrivateTabIndicator-root-229 PrivateTabIndicator-colorSecondary-231 MuiTabs-indicator PrivateTabIndicator-vertical-232"
           style="top: 0px; height: 0px;"
         />
       </div>

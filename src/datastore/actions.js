@@ -64,7 +64,7 @@ export function updateLanguage(language) {
 export function addAttribute(attribute) {
     return (dispatch, getState)=>{
         const attributes = getState().attributes
-        if(attribute) {
+        if(attribute && attributes.indexOf(attribute)===-1) {
             attributes.push(attribute)
             localStorage.setItem(ATTRIBUTES_KEY, JSON.stringify(attributes))
             dispatch(updateAttributes(attributes))
@@ -129,5 +129,22 @@ export function rejectItem(itemTitle){
 
         localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items))
         dispatch(updateItems(state.items))
+    }
+}
+
+export function deleteAttribute(attribute) {
+    return (dispatch, getState) => {
+        const {items, attributes} = getState()
+        const newAttributes = attributes.filter(attr=>attribute !== attr)
+
+        for(const key in items) {
+            const values = items[key].values
+            delete values[attribute]
+        }
+
+        localStorage.setItem(ATTRIBUTES_KEY, JSON.stringify(newAttributes))
+        localStorage.setItem(ITEMS_KEY, JSON.stringify(items))
+        dispatch(updateAttributes(newAttributes))
+        dispatch(updateItems(items))
     }
 }
