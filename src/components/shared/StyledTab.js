@@ -8,6 +8,9 @@ export default withStyles(theme=>({
     wrapper: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
+        '&>svg:hover': {
+            color: theme.palette.secondary.dark
+        }
     },
     wrapped: {
         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -15,5 +18,8 @@ export default withStyles(theme=>({
             backgroundColor: theme.palette.secondary.main,
             color: theme.palette.secondary.contrastText
         }
+    },
+    labelIcon: {
+        minHeight: 48
     }
 })) (props=><Tab icon={<span></span>} {...props}/>)

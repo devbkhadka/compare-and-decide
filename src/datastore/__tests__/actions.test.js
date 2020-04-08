@@ -12,10 +12,41 @@ import {addItemWithTitle,
     updatePreferedItemTitle as updatePreferedItemTitle,
     rejectItem,
     deleteAttribute,
-    deleteItem
+    deleteItem,
+    clearComparisionStatus
 } from '../actions'
 import { COMPARISION_STATUS } from '../reducer'
 import * as fixtures from '../../utils/fixtures'
+
+function assertItemsUpdatedAndSaved(items, dispatch) {
+    expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(items))
+    expect(dispatch).toBeCalledWith(updateItems(items))
+}
+
+function assertItemsLoadedFromStorage(items, dispatch){
+    expect(localStorage.getItem).toBeCalledWith(ITEMS_KEY)
+    expect(dispatch).toBeCalledWith(updateItems(items))
+}
+
+function assertAttributesUpdatedAndSaved(expectedAttributes, mockDispatch){
+    expect(localStorage.setItem).toBeCalledWith(ATTRIBUTES_KEY, JSON.stringify(expectedAttributes))
+    expect(mockDispatch).toBeCalledWith(updateAttributes(expectedAttributes))
+}
+
+function assertAttributeLoadedFromStorage(attributes, dispatch) {
+    expect(localStorage.getItem).toBeCalledWith(ATTRIBUTES_KEY)
+    expect(dispatch).toBeCalledWith(updateAttributes(attributes))
+}
+
+function assertPreferedItemUpdatedAndSaved(itemTitle, mockDispatch) {
+    expect(localStorage.setItem).toBeCalledWith(PREFETED_ITEM_TITLE_KEY, itemTitle)
+    expect(mockDispatch).toBeCalledWith(updatePreferedItemTitle(itemTitle))
+}
+
+function assertPreferedItemLoadedFromStorage(itemTitle, mockDispatch) {
+    expect(localStorage.getItem).toBeCalledWith(PREFETED_ITEM_TITLE_KEY)
+    expect(mockDispatch).toBeCalledWith(updatePreferedItemTitle(itemTitle))
+}
 
 describe('Test actions', ()=>{
     jest.spyOn(Storage.prototype, 'setItem').mockImplementation(()=>null)
@@ -28,40 +59,16 @@ describe('Test actions', ()=>{
 
     describe('Items', ()=>{
         test('addItemWithTitle add item and save it to localstorage', ()=>{
-            addItemWithTitle('Item 1')(jest.fn(), ()=>({items:{}}))
-            let expectedState = {
-                items: {
-                    'Item 1': {
-                        title: 'Item 1',
-                        values: {}
-                    }
-                }
-            }
+            const items = fixtures.getDummyItems()
+            const Item4 = items.Item4
+            delete items.Item4
 
-            expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(expectedState.items))
+            const mockDispatch = jest.fn()
+            addItemWithTitle(Item4.title)(mockDispatch, ()=>({items}))
 
-            addItemWithTitle('Item 2')(jest.fn(), ()=>expectedState)
-            expectedState.items['Item 2'] =  {
-                title: 'Item 2',
-                values: {}
-            }
+            const expectedItems = fixtures.getDummyItems()
+            assertItemsUpdatedAndSaved(expectedItems, mockDispatch)
 
-            expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(expectedState.items))
-
-        })
-
-        test('addItemWithTitle dispatches updateItems action', ()=>{
-            const dispatch = jest.fn()
-            addItemWithTitle('Item 1')(dispatch, ()=>({items:{}}))
-            let expectedState = {
-                items: {
-                    ['Item 1']: {
-                        title: 'Item 1',
-                        values: {}
-                    }
-                }
-            }
-            expect(dispatch).toBeCalledWith(updateItems(expectedState.items))
         })
 
         test('addItemWithTitle will not add new item if it already exists', ()=>{
@@ -73,35 +80,19 @@ describe('Test actions', ()=>{
         })
 
         test('updateItem returns correct item object', ()=>{
-            const items = {
-                ['Item 1']: {
-                    title: 'Item 1',
-                    values: {
-                        ['abc']: 'xyz'
-                    }
-                }
-            }
+            const items = fixtures.getDummyItems()
             expect(updateItems(items)).toMatchSnapshot()
         })
 
         test('loadStateFromStorage loads items from local storage', ()=>{
-            const mockItems = {
-                'item 1': {
-                    title: 'item 1'
-                },
-                'item 2': {
-                    title: 'item 2'
-                }
-
-            }
+            const mockItems = fixtures.getDummyItems()
             const mockDispatch = jest.fn()
             Storage.prototype.getItem.
                 mockImplementation((key)=>key==ITEMS_KEY? JSON.stringify(mockItems): null)
             
             loadStateFromStorage()(mockDispatch)
 
-            expect(localStorage.getItem).toBeCalledWith(ITEMS_KEY)
-            expect(mockDispatch).toBeCalledWith(updateItems(mockItems))
+            assertItemsLoadedFromStorage(mockItems, mockDispatch)
         })
         
         it('doesn\'t update state if localstorage donot have items ', ()=>{
@@ -122,51 +113,49 @@ describe('Test actions', ()=>{
             deleteItem('Item2')(mockDispatch, ()=>({items}))
             const expectedItems = fixtures.getDummyItems()
             delete expectedItems.Item2
-            expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(expectedItems))
-            expect(mockDispatch).toBeCalledWith(updateItems(expectedItems))
+            assertItemsUpdatedAndSaved(expectedItems, mockDispatch)
         })
     })
 
     describe('Attributes', ()=>{
         test('addAttribute adds atributes to state and save it to local storage', ()=>{
-            const initialState = {attributes: ['attr 1', 'attr 2']}
+            const attributes = fixtures.getDummyAttributes()
             const mockDispatch = jest.fn()
 
-            addAttribute('attr 3')(mockDispatch, ()=>initialState)
-            const expectedAttributes = ['attr 1', 'attr 2', 'attr 3']
-            expect(localStorage.setItem).toBeCalledWith(ATTRIBUTES_KEY, JSON.stringify(expectedAttributes))
-            expect(mockDispatch).toBeCalledWith(updateAttributes(expectedAttributes))
+            const expectedAttributes = [...attributes, 'attr5']
+            addAttribute('attr5')(mockDispatch, ()=>({attributes}))
+            
+            assertAttributesUpdatedAndSaved(expectedAttributes, mockDispatch)
         })
 
         test('addAttribute doesn\'t add empty attribute', ()=>{
-            const initialState = {attributes: ['attr 1', 'attr 2']}
+            const attributes = fixtures.getDummyAttributes()
             const mockDispatch = jest.fn()
 
-            addAttribute('')(mockDispatch, ()=>initialState)
+            addAttribute('')(mockDispatch, ()=>({attributes}))
             expect(mockDispatch).not.toBeCalled()
         })
 
         test('addAttribute doesn\'t add duplicate attribute', ()=>{
-            const initialState = {attributes: ['attr 1', 'attr 2']}
+            const attributes = fixtures.getDummyAttributes()
             const mockDispatch = jest.fn()
 
-            addAttribute('attr 1')(mockDispatch, ()=>initialState)
+            addAttribute('attr1')(mockDispatch, ()=>({attributes}))
             expect(mockDispatch).not.toBeCalled()
         })
 
         test('updateAttributes returns action correctly', ()=>{
-            expect(updateAttributes('Attr 1')).toMatchSnapshot()
+            expect(updateAttributes(fixtures.getDummyAttributes())).toMatchSnapshot()
         })
 
         test('loadStateFromStorage loads attributes from storage', ()=>{
-            const attributes = ['attr 1', 'attr 2']
+            const attributes = fixtures.getDummyAttributes()
             Storage.prototype.getItem.
                 mockImplementation((key)=>key==ATTRIBUTES_KEY? JSON.stringify(attributes): null)
             const mockDispatch = jest.fn()
             
             loadStateFromStorage()(mockDispatch)
-            expect(localStorage.getItem).toBeCalledWith(ATTRIBUTES_KEY)
-            expect(mockDispatch).toBeCalledWith(updateAttributes(attributes))
+            assertAttributeLoadedFromStorage(attributes, mockDispatch)
 
         })
 
@@ -186,9 +175,7 @@ describe('Test actions', ()=>{
             deleteAttribute(attributes[2])(mockDispatch, ()=>({attributes}))
 
             const expectedAttributes = fixtures.getDummyAttributesDelAttr3()
-            expect(localStorage.setItem).
-                toBeCalledWith(ATTRIBUTES_KEY, JSON.stringify(expectedAttributes))
-            expect(mockDispatch).toBeCalledWith(updateAttributes(expectedAttributes))
+            assertAttributesUpdatedAndSaved(expectedAttributes, mockDispatch)
         })
 
         test('deleteAttribute removes deleted attributes from all items', ()=>{
@@ -199,42 +186,27 @@ describe('Test actions', ()=>{
             deleteAttribute(attributes[2])(mockDispatch, ()=>({attributes, items}))
 
             const expectedItems = fixtures.getDummyItemsDelAttr3()
-            expect(localStorage.setItem).
-                toBeCalledWith(ITEMS_KEY, JSON.stringify(expectedItems))
-            expect(mockDispatch).toBeCalledWith(updateItems(expectedItems))
+            assertItemsUpdatedAndSaved(expectedItems, mockDispatch)
         })
 
     })
 
     describe('updateItemAttributeValue', ()=>{
         it('should update item attribute and save it to storage', ()=>{
-            const state = {
-                items: {
-                    'Item 1':{title: 'Item 1', values: {}}, 
-                    'Item 2': {title: 'Item 2', values: {}}, 
-                    'Item 3': {title: 'Item 3', values: {}}
-                }
-            }
+            const state = fixtures.getDummyState()
 
             const mockDispatch = jest.fn()
-            const func =updateItemAttributeValue(state.items['Item 1'], 'Fake Attribute', 'Fake Value')
+            const func =updateItemAttributeValue(state.items.Item1, 'Fake Attribute', 'Fake Value')
             func(mockDispatch, ()=>state)
             
-            state.items['Item 1'].values['Fake Attribute'] = 'Fake Value'
+            state.items['Item1'].values['Fake Attribute'] = 'Fake Value'
 
-            expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(state.items))
-            expect(mockDispatch).toBeCalledWith(updateItems(state.items))
+            assertItemsUpdatedAndSaved(state.items, mockDispatch)
         })
     })
 
     describe('setPreferedItemTitle', ()=>{
-        const state = {
-            items: {
-                'Item 1':{title: 'Item 1', values: {}}, 
-                'Item 2': {title: 'Item 2', values: {}}, 
-                'Item 3': {title: 'Item 3', values: {}}
-            }
-        }
+        const state = fixtures.getDummyState()
 
         beforeEach(()=>{
             jest.resetAllMocks()
@@ -243,14 +215,12 @@ describe('Test actions', ()=>{
         it('should set prefered item and save it to localstorage', ()=>{
             const mockDispatch = jest.fn()
             const mockGetState = ()=>state
-            setPreferedItemTitle(state.items['Item 2'].title)(mockDispatch, mockGetState)
-            const expectedItem = state.items['Item 2']
+            setPreferedItemTitle(state.items['Item2'].title)(mockDispatch, mockGetState)
+            const expectedItem = state.items['Item2']
             expectedItem.comparisionStatus = COMPARISION_STATUS.ITEM_PREFERED
 
-            expect(localStorage.setItem).toBeCalledWith(PREFETED_ITEM_TITLE_KEY, expectedItem.title)
-            expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(state.items))
-            expect(mockDispatch).toBeCalledWith(updatePreferedItemTitle(expectedItem.title))
-            expect(mockDispatch).toBeCalledWith(updateItems(state.items))
+            assertItemsUpdatedAndSaved(state.items, mockDispatch)
+            assertPreferedItemUpdatedAndSaved(expectedItem.title, mockDispatch)
         })
 
         it('loadStateFromStorage should load preferedItemTitle', ()=>{
@@ -259,8 +229,30 @@ describe('Test actions', ()=>{
             const mockDispatch = jest.fn()
             
             loadStateFromStorage()(mockDispatch)
-            expect(localStorage.getItem).toBeCalledWith(PREFETED_ITEM_TITLE_KEY)
-            expect(mockDispatch).toBeCalledWith(updatePreferedItemTitle('saved prefered item title'))
+            assertPreferedItemLoadedFromStorage('saved prefered item title', mockDispatch)
+        })
+    })
+
+    describe('Clear Comparision Status', ()=>{
+        it('should clear comparision status of rejected item', ()=>{
+            const items = fixtures.getDummyItems()
+            items.Item2.comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
+            const mockDispatch = jest.fn()
+            clearComparisionStatus(items.Item2.title)(mockDispatch, ()=>({items}))
+
+            const expectedItems = fixtures.getDummyItems()
+            assertItemsUpdatedAndSaved(expectedItems, mockDispatch)
+        })
+        it('should clear comparision status of prefered item', ()=>{
+            const items = fixtures.getDummyItems()
+            items.Item2.comparisionStatus = COMPARISION_STATUS.ITEM_PREFERED
+            const mockDispatch = jest.fn()
+            clearComparisionStatus(items.Item2.title)(mockDispatch, ()=>(
+                {items, preferedItemTitle: items.Item2.title}))
+
+            const expectedItems = fixtures.getDummyItems()
+            assertItemsUpdatedAndSaved(expectedItems, mockDispatch)
+            assertPreferedItemUpdatedAndSaved(undefined, mockDispatch)
         })
     })
 
@@ -270,8 +262,7 @@ describe('Test actions', ()=>{
         const item2 = state.items[Object.keys(state.items)[1]]
         rejectItem(item2.title)(mockDispatch, ()=>state)
         item2.comparisionStatus = COMPARISION_STATUS.ITEM_REJECTED
-        expect(localStorage.setItem).toBeCalledWith(ITEMS_KEY, JSON.stringify(state.items))
-        expect(mockDispatch).toBeCalledWith(updateItems(state.items))
+        assertItemsUpdatedAndSaved(state.items, mockDispatch)
     })
 
 

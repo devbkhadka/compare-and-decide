@@ -38,12 +38,8 @@ const ComparisionGridPane = ()=> {
 
     const selectPreferedItem = (item)=> {
         const rejected = item===preferedItem? otherItem: preferedItem
-
-        const yes = global.confirm(`Do you prefer ${item.title} between ${preferedItem.title} and ${otherItem.title}`)
-        if(yes) {
-            dispatch(setPreferedItemTitle(item.title))
-            dispatch(rejectItem(rejected.title))
-        }
+        dispatch(setPreferedItemTitle(item.title))
+        dispatch(rejectItem(rejected.title))
     }
 
     return (!!preferedItem) ? <Box data-testid="root-content" className={classes.root}>
