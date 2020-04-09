@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles';
-import { makeStyles, Box} from '@material-ui/core'
+import { makeStyles, Box, CssBaseline} from '@material-ui/core'
 import {IntlProvider} from 'react-intl'
 import { useDispatch } from 'react-redux'
 
-import './App.css';
+// import './App.css';
 
 import theme from './styles/theme'
 import Dashboard from './components/Dashboard'
@@ -25,10 +25,13 @@ const useStyles = makeStyles(theme=>({
     }
   },
   root:{
-    height: '100vh'
+    height: '100vh',
+    display: 'flex', 
+    flexDirection: 'column'
   },
   container: {
-    overflow: 'hidden'
+    overflow: 'hidden',
+    flexGrow: 1
   }
 }))
 
@@ -45,16 +48,17 @@ function App() {
 
   return (
     <IntlProvider locale={language}  messages={messages[language]}>
-        <ThemeProvider theme={theme}>
-          <Box display='flex' flexDirection='column' className={classes.root}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline/>
+        <Box className={classes.root}>
             <Box>
               <CustomAppBar></CustomAppBar>
             </Box>
-            <Box flexGrow={1} className={classes.container}>
+            <Box className={classes.container}>
               <Dashboard></Dashboard>
             </Box>
           </Box>
-        </ThemeProvider>
+      </ThemeProvider>
     </IntlProvider>
   );
 }

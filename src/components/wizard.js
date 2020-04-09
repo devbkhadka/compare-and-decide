@@ -8,7 +8,9 @@ import formattedText from '../utils/translations'
 
 const getClasses = makeStyles(theme=>({
     root: {
-        height:'100%'
+        height:'100%',
+        display: 'flex', 
+        flexDirection: 'column'
     },
     tabHeading: {
         backgroundColor: theme.palette.primary.dark,
@@ -44,7 +46,7 @@ export default function TabbedWizard({tabs, children}) {
     }
     const classes = getClasses()
 
-    return <Box display='flex' flexDirection='column' className={classes.root}>
+    return <Box className={classes.root}>
         <Paper className={classes.tabHeading} square>
             <Tabs
                 className='tabs'

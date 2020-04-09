@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# files related to nextjs and static site
+.next
+out
+compare-and-decide-static
