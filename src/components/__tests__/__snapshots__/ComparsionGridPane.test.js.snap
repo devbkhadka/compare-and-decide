@@ -4,17 +4,17 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
 <body>
   <div>
     <div
-      class="MuiBox-root MuiBox-root-730 makeStyles-root-724"
+      class="MuiBox-root MuiBox-root-558 makeStyles-root-552"
       data-testid="root-content"
     >
       <div
-        class="MuiGrid-root makeStyles-content-726 MuiGrid-container MuiGrid-spacing-xs-2"
+        class="MuiGrid-root makeStyles-content-554 MuiGrid-container MuiGrid-spacing-xs-2"
       >
         <div
           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
         >
           <h5
-            class="MuiTypography-root Component-root-834 MuiTypography-h5"
+            class="MuiTypography-root Component-root-662 MuiTypography-h5"
           >
             You have choosen "
             Item2
@@ -22,7 +22,7 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           </h5>
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-727 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
         >
           <p
             class="MuiTypography-root MuiTypography-body1"
@@ -38,7 +38,7 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           />
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-727 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
         >
           <p
             class="MuiTypography-root MuiTypography-body1"
@@ -56,7 +56,7 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           </p>
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-727 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
         >
           <p
             class="MuiTypography-root MuiTypography-body1"

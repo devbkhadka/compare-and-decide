@@ -118,12 +118,6 @@ describe('ComparisionGridPane Component', ()=>{
                 expect(mockSetPreferedItemTitle).toBeCalledWith(Item3.title)
                 expect(mockRejectItem).toBeCalledWith(Item2.title)
             })
-
-            it("Should be able to cancel selection after clicking item", ()=>{
-                global.confirm.mockImplementation(()=>false)
-                fireEvent.click(btnForPrefered)
-                expect(mockSetPreferedItemTitle).not.toBeCalled()
-            })
         })
         
         // Should be able to add comment on the item
