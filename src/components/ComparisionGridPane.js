@@ -22,10 +22,13 @@ const useStyles = makeStyles((theme)=>({
         position: 'absolute'
     },
     attribute: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        backgroundColor: theme.palette.action.selected
     },
     columnHeader: {
-        display: 'flex'
+        display: 'flex',
+        backgroundColor: theme.palette.action.selected,
+        justifyContent: 'space-between'
     }
     
 }))
@@ -52,47 +55,47 @@ const ComparisionGridPane = ()=> {
     return (!!preferedItem) ? <Box data-testid="root-content" className={classes.root}>
         <Grid container spacing={2} className={classes.content}>
             {!otherItem ? 
-                <Grid item xs={12}>
+                <Grid item xs={12} >
                     <Title>
                         <FormattedMessage {...messages.title} values={{itemTitle: preferedItem.title}}/>
                     </Title>
                 </Grid>
                 :
                 <>
-                    <Hidden xsDown>
-                        <Grid item xs={12} sm={!!otherItem?2:4}>
+                    <Hidden smDown>
+                        <Grid item xs={12} md={!!otherItem?2:4} className={classes.columnHeader}>
                             <Title><FormattedMessage {...messages.attributes}/></Title>
                         </Grid>
                     </Hidden>
-                    <Grid item sm={!!otherItem?5:8} xs={12} className={classes.columnHeader} >
+                    <Grid item md={!!otherItem?5:8} xs={12} className={classes.columnHeader} >
                         <Title>{preferedItem.title}</Title> 
                         <IconButton data-testid='btnCheck' onClick={()=>selectPreferedItem(preferedItem)}>
-                            <CheckCircleIcon fontSize='small'/>
+                            <CheckCircleIcon color='action' />
                         </IconButton>
                     </Grid>
                 </>
             }
             {!!otherItem && 
-                <Grid item sm={5} xs={12} className={classes.columnHeader}>
+                <Grid item md={5} xs={12} className={classes.columnHeader}>
                     <Title >{otherItem.title}</Title>
                     <IconButton data-testid='btnCheck' onClick={()=>selectPreferedItem(otherItem)}>
-                        <CheckCircleIcon fontSize='small'/>
+                        <CheckCircleIcon color='action'/>
                     </IconButton>
                 </Grid>
             }
             {attributes.map((attr,i)=>(
                 <React.Fragment key={`${attr}-${i}`}>
-                    <Grid item xs={12} sm={!!otherItem?2:4} className={classes.attribute}>
-                        <Typography variant="body1">{attr}</Typography>
+                    <Grid item xs={12} md={2} className={classes.attribute}>
+                        <Typography variant="subtitle1">{attr}</Typography>
                     </Grid>
-                    <Grid item xs={6} sm={!!otherItem?5:8}>
+                    <Grid item xs={6} md={!!otherItem?5:8}>
                         <Typography variant="body1">
                             {preferedItem.values && preferedItem.values[attr]}
                         </Typography>
                     </Grid>
                     {!!otherItem && 
-                        <Grid item xs={6} sm={5}>
-                            <Typography variant="subtitle1">
+                        <Grid item md={5} >
+                            <Typography variant="body1">
                                 {otherItem.values && otherItem.values[attr]}
                             </Typography>
                         </Grid>
@@ -101,12 +104,12 @@ const ComparisionGridPane = ()=> {
             ))}
 
         </Grid>
-        <Hidden xsDown>
+        <Hidden smDown>
             {!!otherItem && 
                 <Grid container className={classes.separator}>
-                    <Grid item sm={2} />
-                    <Grid item sm={5} className='seperatorBorder'/>
-                    <Grid item sm={5} />
+                    <Grid item md={2} />
+                    <Grid item md={5} className='seperatorBorder'/>
+                    <Grid item md={5} />
                 </Grid>
             }
         </Hidden>
