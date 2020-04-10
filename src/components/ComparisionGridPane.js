@@ -5,6 +5,7 @@ import Title from './shared/Title'
 import { useSelector, useDispatch } from 'react-redux'
 import { remainingItemsSelector } from '../datastore/selectors'
 import { setPreferedItemTitle, rejectItem } from '../datastore/actions';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles((theme)=>({
     root: {
@@ -29,6 +30,12 @@ const useStyles = makeStyles((theme)=>({
     
 }))
 
+const messages = defineMessages({
+    title: 'You have choosen "{itemTitle}"',
+    selectPreferedItem: 'Please select a prefered item from left pane to start comparision',
+    attributes: 'Attributes'
+})
+
 const ComparisionGridPane = ()=> {
     const classes = useStyles()
     const attributes = useSelector(state=>state.attributes)
@@ -46,13 +53,15 @@ const ComparisionGridPane = ()=> {
         <Grid container spacing={2} className={classes.content}>
             {!otherItem ? 
                 <Grid item xs={12}>
-                    <Title>You have choosen "{preferedItem.title}"</Title>
+                    <Title>
+                        <FormattedMessage {...messages.title} values={{itemTitle: preferedItem.title}}/>
+                    </Title>
                 </Grid>
                 :
                 <>
                     <Hidden xsDown>
                         <Grid item xs={12} sm={!!otherItem?2:4}>
-                            <Title>Attributes</Title>
+                            <Title><FormattedMessage {...messages.attributes}/></Title>
                         </Grid>
                     </Hidden>
                     <Grid item sm={!!otherItem?5:8} xs={12} className={classes.columnHeader} >
@@ -102,7 +111,9 @@ const ComparisionGridPane = ()=> {
             }
         </Hidden>
     </Box> : 
-    <Typography variant='body1'>Please select a prefered item from left pane to start comparision</Typography>
+    <Typography variant='body1'>
+        <FormattedMessage {...messages.selectPreferedItem} />
+    </Typography>
 }
 
 export default ComparisionGridPane

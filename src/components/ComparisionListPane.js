@@ -6,12 +6,19 @@ import { Undo } from '@material-ui/icons'
 import StyledTab from './shared/StyledTab'
 import { setPreferedItemTitle, clearComparisionStatus } from '../datastore/actions'
 import { remainingItemsSelector, rejectedItemsSelector } from '../datastore/selectors'
+import { defineMessages, FormattedMessage } from 'react-intl'
 
 const useStyles = makeStyles((theme)=>({
     section: {
         marginBottom: theme.spacing(3)
     }
 }))
+
+const messages = defineMessages({
+    preferedItem: 'Prefered Item',
+    remainingItems: 'Remaining Items',
+    rejectedItems: 'Rejected Items'
+})
 
 const ComparisionListPane =  (props)=> {
     
@@ -39,7 +46,7 @@ const ComparisionListPane =  (props)=> {
         {preferedItem && 
             <Box className={classes.section}>
                 <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
-                    Prefered Item
+                    <FormattedMessage {...messages.preferedItem}/>
                 </Typography>
                 <StyledTab label={preferedItem.title} wrapped
                     icon={<Undo color='action' onClick={()=>handleClearStatus(preferedItem.title)}/>}
@@ -49,7 +56,7 @@ const ComparisionListPane =  (props)=> {
         {remainingItems.length>0 &&
             <Box className={classes.section}>
                 <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
-                    Remaining Items
+                    <FormattedMessage {...messages.remainingItems}/>
                 </Typography>
                 {remainingItems.map((item, i)=>
                     <StyledTab key={item.title} onClick={(e)=>handleItemClicked(i)}
@@ -60,7 +67,7 @@ const ComparisionListPane =  (props)=> {
         {rejectedItems.length>0 &&
             <Box className={classes.section}>
                 <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
-                    Rejected Items
+                    <FormattedMessage {...messages.rejectedItems}/>
                 </Typography>
                 {rejectedItems.map(item=>
                     <StyledTab key={item.title} label={item.title} wrapped

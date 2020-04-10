@@ -32,8 +32,7 @@ const useStyles = makeStyles(theme=>({
 
 const messages = defineMessages({
     attributes: 'Attributes',
-    addAttribute: 'add new attribute',
-    addBtnText: 'Add'
+    manageAttributesBtn: 'Manage Attributes'
 })
 
 export default function ItemAttributesPane({item}) {
@@ -58,7 +57,9 @@ export default function ItemAttributesPane({item}) {
             <Title style={{flexGrow:1}}>
                 {item? item.title: <FormattedMessage {...messages.attributes} />}
             </Title>
-            <Button variant="contained" style={{margin: 8, flexShrink:1}} onClick={ showDialog }>Manage Attributes</Button>
+            <Button variant="contained" style={{margin: 8, flexShrink:1}} onClick={ showDialog }>
+                <FormattedMessage {...messages.manageAttributesBtn}/>
+            </Button>
         </Box>
         
         <Box className={classes.textFieldContainer}>

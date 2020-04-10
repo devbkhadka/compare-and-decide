@@ -17,7 +17,9 @@ import ConfirmDialog from './shared/ConfirmDialog'
 const messages = defineMessages({
     title: 'Items',
     addNewItem: 'add new items',
-    addBtnText: 'Add'
+    addBtnText: 'Add',
+    confirmItemDeteteTitle: 'Alert!',
+    comfirmItemDeleteMessage: 'Are you sure you want to delete "{deleteItemTitle}"'
 })
 
 export default function ItemListPane({ onItemSelected }) {
@@ -92,8 +94,8 @@ export default function ItemListPane({ onItemSelected }) {
                 )
             }
         </Tabs>
-        <ConfirmDialog title="Alert!" 
-            message={`Are you sure you want to delete "${deleteItemTitle}"`} 
+        <ConfirmDialog title={<FormattedMessage {...messages.comfirmItemDeleteMessage}/>}
+            message={<FormattedMessage {...messages.comfirmItemDeleteMessage} values={{deleteItemTitle}}/>} 
             data={deleteItemTitle} 
             onConfirmed={deleteItemConfirmed}
             />
