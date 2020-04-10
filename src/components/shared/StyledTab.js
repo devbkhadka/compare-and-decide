@@ -9,7 +9,10 @@ export default withStyles(theme=>({
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
         '&>svg:hover': {
-            color: theme.palette.secondary.dark
+            color: theme.palette.action.disabled
+        },
+        '&>svg': {
+            color: theme.palette.action.active
         }
     },
     wrapped: {

@@ -11,6 +11,15 @@ import { defineMessages, FormattedMessage } from 'react-intl'
 const useStyles = makeStyles((theme)=>({
     section: {
         marginBottom: theme.spacing(3)
+    },
+    remainingItem: {
+        
+    },
+    rejectedItem: {
+        
+    },
+    preferedItem: {
+        
     }
 }))
 
@@ -48,19 +57,19 @@ const ComparisionListPane =  (props)=> {
                 <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
                     <FormattedMessage {...messages.preferedItem}/>
                 </Typography>
-                <StyledTab label={preferedItem.title} wrapped
-                    icon={<Undo color='action' onClick={()=>handleClearStatus(preferedItem.title)}/>}
+                <StyledTab label={preferedItem.title} wrapped className={classes.preferedItem}
+                    icon={<Undo onClick={()=>handleClearStatus(preferedItem.title)}/>}
                 />
             </Box>
         }
         {remainingItems.length>0 &&
-            <Box className={classes.section}>
+            <Box className= {classes.section}>
                 <Typography variant='h5' style={{marginBottom: theme.spacing(1)}}>
                     <FormattedMessage {...messages.remainingItems}/>
                 </Typography>
                 {remainingItems.map((item, i)=>
                     <StyledTab key={item.title} onClick={(e)=>handleItemClicked(i)}
-                    label={item.title}  wrapped/>)
+                    label={item.title}  wrapped className={classes.remainingItem}/>)
                 }
             </Box>
         }
@@ -70,8 +79,8 @@ const ComparisionListPane =  (props)=> {
                     <FormattedMessage {...messages.rejectedItems}/>
                 </Typography>
                 {rejectedItems.map(item=>
-                    <StyledTab key={item.title} label={item.title} wrapped
-                        icon={<Undo color='action' onClick={()=>handleClearStatus(item.title)} />}
+                    <StyledTab key={item.title} label={item.title} wrapped className={classes.rejectedItem}
+                        icon={<Undo onClick={()=>handleClearStatus(item.title)} />}
                     />
                 )}
             </Box>
