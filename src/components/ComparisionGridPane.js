@@ -63,11 +63,11 @@ const ComparisionGridPane = ()=> {
                 :
                 <>
                     <Hidden smDown>
-                        <Grid item xs={12} md={!!otherItem?2:4} className={classes.columnHeader}>
+                        <Grid item xs={12} md={2} className={classes.columnHeader}>
                             <Title><FormattedMessage {...messages.attributes}/></Title>
                         </Grid>
                     </Hidden>
-                    <Grid item md={!!otherItem?5:8} xs={12} className={classes.columnHeader} >
+                    <Grid item md={5} xs={12} className={classes.columnHeader} >
                         <Title>{preferedItem.title}</Title> 
                         <IconButton data-testid='btnCheck' onClick={()=>selectPreferedItem(preferedItem)}>
                             <CheckCircleIcon color='action' />
@@ -85,7 +85,7 @@ const ComparisionGridPane = ()=> {
             }
             {attributes.map((attr,i)=>(
                 <React.Fragment key={`${attr}-${i}`}>
-                    <Grid item xs={12} md={2} className={classes.attribute}>
+                    <Grid item xs={12} md={!!otherItem?2:4} className={classes.attribute}>
                         <Typography variant="subtitle1">{attr}</Typography>
                     </Grid>
                     <Grid item xs={6} md={!!otherItem?5:8}>

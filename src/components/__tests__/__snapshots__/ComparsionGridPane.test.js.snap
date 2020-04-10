@@ -20,7 +20,7 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           </h5>
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4"
         >
           <h6
             class="MuiTypography-root MuiTypography-subtitle1"
@@ -36,7 +36,7 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           />
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4"
         >
           <h6
             class="MuiTypography-root MuiTypography-subtitle1"
@@ -54,7 +54,7 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           </p>
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4"
         >
           <h6
             class="MuiTypography-root MuiTypography-subtitle1"
