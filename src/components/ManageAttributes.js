@@ -19,9 +19,11 @@ import ConfirmDialog from './shared/ConfirmDialog'
 
 
 const messages = defineMessages({
-    attributes: 'Attributes',
     addAttribute: 'add new attribute',
-    addBtnText: 'Add'
+    addBtnText: 'Add',
+    title: 'Manage Attributes',
+    confirmDeleteTitle: 'Alert!',
+    confrimDeleteMessage: 'Are you sure you want to delete "{itemToDelete}"'
 })
 
 const StyledDialog = withStyles({
@@ -30,6 +32,7 @@ const StyledDialog = withStyles({
         height: 400
     }
 })(Dialog)
+
 
 export default ({onClose, open})=> {
     const dispatch = useDispatch()
@@ -63,7 +66,9 @@ export default ({onClose, open})=> {
     return (
         <>
             <StyledDialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
-                <DialogTitle id="simple-dialog-title">Manage Attributes</DialogTitle>
+                <DialogTitle id="simple-dialog-title">
+                    <FormattedMessage {...messages.title}/>
+                </DialogTitle>
                 <DialogContent>
                     <Box display='flex'>
                         <FormattedMessage {...messages.addAttribute}>
@@ -92,8 +97,8 @@ export default ({onClose, open})=> {
                 </DialogContent>
             </StyledDialog>
             <ConfirmDialog data={itemToDelete} 
-                title= 'Alert!'
-                message={`Are you sure you want to delete"${itemToDelete}"`}
+                title= {<FormattedMessage {...messages.confirmDeleteTitle}/>}
+                message={<FormattedMessage {...messages.confrimDeleteMessage} values={{itemToDelete}}/>}
                 onConfirmed={handleDeleteAttribute}
                 />
         </>

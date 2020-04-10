@@ -42,7 +42,6 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    console.log('App component rendered')
     dispatch(loadStateFromStorage())
   })
 

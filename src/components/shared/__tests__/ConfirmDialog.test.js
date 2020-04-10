@@ -1,5 +1,6 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
+import {renderWithIntl as render} from '../../../utils/testUtils'
 import ConfirmDialog from '../ConfirmDialog'
 
 describe('ConfrimDialog', ()=>{

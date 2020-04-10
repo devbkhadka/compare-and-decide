@@ -11,7 +11,7 @@ import Compare from './Compare'
 const steps = [ 
     defineMessages({overview: 'Overview >>'}), 
     defineMessages({addItemPane: 'Add Items >>'}), 
-    defineMessages({addItemGrid: 'Compare >>'})
+    defineMessages({compare: 'Compare >>'})
   ]
 
 export default function Dashboard() {

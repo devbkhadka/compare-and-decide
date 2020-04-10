@@ -16,9 +16,7 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           <h5
             class="MuiTypography-root Component-root-662 MuiTypography-h5"
           >
-            You have choosen "
-            Item2
-            "
+            You have choosen "Item2"
           </h5>
         </div>
         <div
