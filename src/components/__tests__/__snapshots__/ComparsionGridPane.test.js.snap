@@ -20,32 +20,32 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           </h5>
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
         >
-          <p
-            class="MuiTypography-root MuiTypography-body1"
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1"
           >
             attr1
-          </p>
+          </h6>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-8"
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-md-8"
         >
           <p
             class="MuiTypography-root MuiTypography-body1"
           />
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
         >
-          <p
-            class="MuiTypography-root MuiTypography-body1"
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1"
           >
             attr2
-          </p>
+          </h6>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-8"
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-md-8"
         >
           <p
             class="MuiTypography-root MuiTypography-body1"
@@ -54,16 +54,16 @@ exports[`ComparisionGridPane Component When prefered item is selected and all co
           </p>
         </div>
         <div
-          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+          class="MuiGrid-root makeStyles-attribute-555 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-2"
         >
-          <p
-            class="MuiTypography-root MuiTypography-body1"
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1"
           >
             attr3
-          </p>
+          </h6>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-8"
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-md-8"
         >
           <p
             class="MuiTypography-root MuiTypography-body1"
