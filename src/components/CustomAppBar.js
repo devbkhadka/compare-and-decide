@@ -4,6 +4,9 @@ import {FormattedMessage, defineMessages} from 'react-intl'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateLanguage } from '../datastore/actions'
 
+import flagNP from '../images/np-flag-32.png'
+import flagUS from '../images/us-flag-32.png'
+
 
 const useStyles = makeStyles(theme=>({
     root: {
@@ -51,10 +54,15 @@ function LanguageSelect() {
         dispatch(updateLanguage(e.target.value))
     }
 
+    const imgStyle= {
+        height: 16,
+        width: 'auto'
+    }
+
     return <FormControl>
         <StyledSelect data-testid='language-select' value={language} onChange={handleLanguageChange}>
-            <MenuItem value='en'>EN</MenuItem>
-            <MenuItem value='np'>NP</MenuItem>
+            <MenuItem value='en'><img src={flagUS} alt="EN" style={imgStyle}/></MenuItem>
+            <MenuItem value='np'><img src={flagNP} alt="NP" style={imgStyle}/></MenuItem>
         </StyledSelect>
     </FormControl>
 }

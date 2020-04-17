@@ -14,9 +14,9 @@ describe("CustomAppBar Component Test", ()=>{
 
     it('should dispatch updateLanguage action when language is selected', async ()=>{
         const [rendered, store] = render(<CustomAppBar></CustomAppBar>, {language: 'en'})
-        const select = rendered.getByText('EN')
+        const select = rendered.getByAltText('EN')
         fireEvent.mouseDown(select)
-        const np =  await waitForElement(()=>rendered.getByText('NP'))
+        const np =  await waitForElement(()=>rendered.getByAltText('NP'))
         fireEvent.click(np)
 
         const actions = store.getActions()

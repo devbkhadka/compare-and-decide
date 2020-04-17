@@ -4,7 +4,8 @@ import {
     Box,
     TextField,
     makeStyles,
-    Button
+    Button,
+    Grid
 } from '@material-ui/core'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { updateItemAttributeValue } from '../datastore/actions'
@@ -13,13 +14,9 @@ import Title from './shared/Title'
 
 const useStyles = makeStyles(theme=>({
     textFieldContainer: {
-        display: 'flex',
-        flexWrap: 'wrap',
         alignContent: 'flex-start',
-        flexGrow: 1,
         overflow: 'scroll',
         '&>div': {
-            width: '50%',
             minWidth: '200px',
             boxSizing: 'border-box',
             padding: theme.spacing(1)
@@ -62,18 +59,18 @@ export default function ItemAttributesPane({item}) {
             </Button>
         </Box>
         
-        <Box className={classes.textFieldContainer}>
+        <Grid container className={classes.textFieldContainer}>
             { attributes.map((attr, i)=> 
-                <TextField key={`attr-${i}`} 
-                    inputProps={{ "data-testid": `attr-${i}` }} 
-                    onChange={(e)=>handleAttrValueChanged(item, attr, e.target.value)} 
-                    name={`attr-${i}`}
-                    value={item && item.values[attr]?item.values[attr]:''}
-                    label={attr}/>
+                <Grid item xs={12} md={6} key={`attr-${i}`}>
+                    <TextField fullWidth 
+                        inputProps={{ "data-testid": `attr-${i}` }} 
+                        onChange={(e)=>handleAttrValueChanged(item, attr, e.target.value)} 
+                        name={`attr-${i}`}
+                        value={item && item.values[attr]?item.values[attr]:''}
+                        label={attr}/>
+                </Grid>
             )}
-        </Box>
-
-        
+        </Grid>
 
         <ManageAttributes open={openDialog} onClose={closeDialog}></ManageAttributes>
     </>

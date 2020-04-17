@@ -114,7 +114,7 @@ const ComparisionGridPane = ()=> {
             }
         </Hidden>
     </Box> : 
-    <Typography variant='body1'>
+    <Typography variant='subtitle1' align="center">
         <FormattedMessage {...messages.selectPreferedItem} />
     </Typography>
 }
